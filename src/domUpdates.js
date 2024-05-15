@@ -1,8 +1,8 @@
 import { userSteps } from './scripts.js' 
 
 
-var userCard = document.querySelector('.card1')
-var welcomeUser = document.querySelector('.card-banner')
+// var userCard = document.querySelector('.card1')
+// var welcomeUser = document.querySelector('.card-banner')
 
 export default function displayUserInfo (user) {
   userCard.innerHTML = `
