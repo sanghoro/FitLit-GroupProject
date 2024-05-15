@@ -66,6 +66,8 @@ function specificOuncesByDay(date, hydroData){
 
 function weekOfHydroData(user, hydroData) {
     const userHydroData = hydroData.filter(userP => userP.userID === user.id);
+    console.log('adams log::',userHydroData)
+
     const lastIndex = userHydroData.length - 1;
     const weekData = [];
 
@@ -82,7 +84,7 @@ weekOfHydroData(randomUser, hydroData)
 getHydrationData(randomUser, hydroData)
 specificOuncesByDay('2023/06/12', hydroData)
 
-
+displayUserInfo(randomUser)
 
 export { 
     userSteps, 

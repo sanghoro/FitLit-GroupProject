@@ -31,6 +31,14 @@ body {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
 }
+.user-card {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+  margin: 2rem;
+}
+
 .card{
   margin: 2rem;
   background: rgba(181, 41, 232, 0.5);
