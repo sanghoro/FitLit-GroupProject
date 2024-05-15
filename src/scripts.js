@@ -12,10 +12,13 @@ var hydroData = hydration.hydrationData
 var randomUser = getUserDataByID(getRandomIndex(usersArray), usersArray)
 
 // function invokations 
-console.log('Weekof::',weekOfHydroData(randomUser, hydroData))
-console.log('hydroData::::', getHydrationData(randomUser, hydroData))
-console.log(':::::', specificOuncesByDay('2023/06/12', hydroData))
-// displayUserInfo(randomUser)
+weekOfHydroData(randomUser, hydroData)
+getHydrationData(randomUser, hydroData)
+ specificOuncesByDay('2023/06/12', hydroData)
+
+
+//must comment/uncomment below function and Queryselectors in domUpdates.js when wanting to run test in terminal 
+displayUserInfo(randomUser)
 
 export { 
     hydroData,
