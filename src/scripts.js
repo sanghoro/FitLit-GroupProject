@@ -6,7 +6,7 @@ import hydration from "./data/hydration.js";
 import {
   userSteps,
   getRandomIndex,
-  getUserDataByID,
+  getUserDataById,
   usersArray,
 } from "./userDataFunctions.js";
 import {
@@ -17,7 +17,7 @@ import {
 
 //Global
 var hydroData = hydration.hydrationData;
-var randomUser = getUserDataByID(getRandomIndex(usersArray), usersArray);
+var randomUser = getUserDataById(getRandomIndex(usersArray), usersArray);
 
 // function invokations
 weekOfHydroData(randomUser, hydroData);
