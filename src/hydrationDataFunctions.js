@@ -4,46 +4,39 @@ import { randomUser } from "./userDataFunctions";
 //global
 var hydroData = hydration.hydrationData;
 
+var weekOfHydro = weekOfHydroData(randomUser, hydroData);
+var usersOunces = getHydrationData(randomUser, hydroData);
+// var ouncesByDate = specificOuncesByDay("2023/06/12", randomUser);
+
 //functions
 function getHydrationData(user, hydroData) {
   var userHydroData = hydroData.filter((userP) => userP.userID === user.id);
-  //   console.log("line10", userHydroData);
 
-  const hydroAvg = userHydroData.reduce((acc, ounces) => {
-    acc += ounces.numOunces / userHydroData.length;
-    return acc;
-  }, 0);
-
-  //   console.log("line16", hydroAvg);
-  return hydroAvg;
+  const totalOunces = userHydroData.reduce((total, day) => total + day.numOunces, 0);
+  
+  const averageOunces = totalOunces / userHydroData.length;
+  
+  return averageOunces;
 }
 
 // function specificOuncesByDay(date, hydroData) {
-//   const specificDate = hydroData.filter((day) => day.date === date);
-//   const randomUserOunces = specificDate.find(
-//     (user) => user.userID === randomUser.id
-//   );
-//   return randomUserOunces.numOunces;
+//     const specificDate = hydroData.find((day) => day.date === date && day.userID === user.id);
+//     return specificDate ? specificDate.numOunces : 0;
 // }
-
-function specificOuncesByDay(date, hydroData) {
-  const specificDate = hydroData.find((day) => day.date === date);
-  return specificDate.numOunces;
-}
 
 function weekOfHydroData(user, hydroData) {
   const userHydroData = hydroData.filter((userP) => userP.userID === user.id);
 
-  const lastIndex = userHydroData.length - 1;
-  const weekData = [];
-
-  const startIndex = lastIndex < 6 ? 0 : lastIndex - 6;
-
-  for (let i = startIndex; i <= lastIndex; i++) {
-    weekData.push(userHydroData[i]);
-  }
-
+  const weekData = userHydroData.slice(-7);
   return weekData;
 }
 
-export { hydroData, getHydrationData, weekOfHydroData, specificOuncesByDay };
+export { 
+    hydroData, 
+    getHydrationData, 
+    weekOfHydroData, 
+    // specificOuncesByDay, 
+    weekOfHydro, 
+    usersOunces,
+    // ouncesByDate
+ };

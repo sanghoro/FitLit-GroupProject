@@ -1,5 +1,5 @@
 import { userSteps, avgSteps } from "./userDataFunctions.js";
-import { hydroData } from "./hydrationDataFunctions.js";
+import { hydroData, usersOunces, weekOfHydro, ouncesByDate} from "./hydrationDataFunctions.js";
 
 //Mustcomment/ uncomment below querySelectors
 
@@ -18,7 +18,12 @@ export default function displayUserInfo(user) {
   welcomeUser.innerText = `Welcome, ${user.name}`;
 }
 
-export function displayHydroData(hydroData) {
+export function displayHydroData( weekOfHydro, usersOunces) {
   widgetBox.innerHTML = `<div class='widget'>
-$</div>`;
+  <h3> 
+  You have consumed  ounces of water today.
+  </h3>
+  <h3>${usersOunces}</h3>
+  <h3>${weekOfHydro.map(day => day.numOunces)}</h3> 
+  </div>`;
 }
