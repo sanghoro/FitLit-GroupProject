@@ -7,6 +7,7 @@ import users from "./data/users";
 var usersArray = users.users;
 var userSteps = avgSteps(usersArray);
 var randomUser = getUserDataById(getRandomIndex(usersArray), usersArray);
+var loggedInUser = randomUser;
 
 //functions
 function getRandomIndex(array) {
@@ -14,7 +15,7 @@ function getRandomIndex(array) {
 }
 
 function getUserDataById(userID, usersArray) {
-  const userData = usersArray.find((user) => user.id === userID);
+  var userData = usersArray.find((user) => user.id === userID);
   return userData;
 }
 
@@ -26,6 +27,14 @@ function avgSteps(userArray) {
   return userSteps;
 }
 
+function setLoggedInUser(userID) {
+  loggedInUser = getUserDataById(userID, usersArray);
+}
+
+function getLoggedInUser() {
+  return loggedInUser;
+}
+
 //exports
 export {
   getRandomIndex,
@@ -34,4 +43,7 @@ export {
   userSteps,
   avgSteps,
   usersArray,
+  setLoggedInUser,
+  getLoggedInUser,
+  loggedInUser,
 };
