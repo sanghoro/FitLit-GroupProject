@@ -1,5 +1,5 @@
 import hydration from "./data/hydration";
-import { loggedInUser } from "./userDataFunctions";
+import { getLoggedInUser, loggedInUser } from "./userDataFunctions";
 
 // Global
 var hydroData = hydration.hydrationData;
@@ -35,6 +35,18 @@ function weekOfHydroData(user, hydroData) {
   return weekData;
 }
 
+function initializeHydrationData() {
+  const loggedInUser = getLoggedInUser();
+  const weekOfHydro = weekOfHydroData(loggedInUser, hydroData);
+  const usersOunces = getHydrationData(loggedInUser, hydroData);
+  const ouncesByDate = specificOuncesByDay(
+    "2023/03/24",
+    hydroData,
+    loggedInUser
+  );
+  return { weekOfHydro, usersOunces, ouncesByDate };
+}
+
 export {
   hydroData,
   getHydrationData,
@@ -43,4 +55,5 @@ export {
   weekOfHydro,
   usersOunces,
   ouncesByDate,
+  initializeHydrationData,
 };

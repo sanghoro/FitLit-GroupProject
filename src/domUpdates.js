@@ -1,10 +1,16 @@
-import { userSteps, avgSteps, randomUser } from "./userDataFunctions.js";
+import {
+  userSteps,
+  randomUser,
+  setLoggedInUser,
+  getLoggedInUser,
+} from "./userDataFunctions.js";
 import {
   hydroData,
   usersOunces,
   weekOfHydro,
   ouncesByDate,
   specificOuncesByDay,
+  initializeHydrationData,
 } from "./hydrationDataFunctions.js";
 
 // Must comment/uncomment below querySelectors
@@ -13,8 +19,15 @@ var userCard = document.querySelector(".card1");
 var welcomeUser = document.querySelector(".card-banner");
 var widgetBox = document.querySelector(".card2");
 
+function initializeAndDisplayData() {
+  const { weekOfHydro, usersOunces, ouncesByDate } = initializeHydrationData();
+  const loggedInUser = getLoggedInUser();
+}
+
 displayUserInfo(randomUser);
 displayHydroData("2023/03/24", hydroData, randomUser);
+setLoggedInUser();
+initializeAndDisplayData();
 
 export default function displayUserInfo(user) {
   userCard.innerHTML = `
@@ -31,8 +44,8 @@ export function displayHydroData(date, hydroData, user) {
   const ouncesByDate = specificOuncesByDay(date, hydroData, user);
   widgetBox.innerHTML = `
   <div class='widget'>
-    <h3>You have consumed ${ouncesByDate} ounces of water today.</h3>
-    <h3>Average ounces consumed: ${usersOunces}</h3>
-    <h3>Past week's water consumption: ${weekOfHydro.map((day) => day.numOunces).join(", ")}</h3>
+  <h3>You have consumed ${ouncesByDate} ounces of water today.</h3>
+  <h3>Average ounces consumed: ${usersOunces}</h3>
+  <h3>Past week's water consumption: ${weekOfHydro.map((day) => day.numOunces).join(", ")}</h3>
   </div>`;
 }
