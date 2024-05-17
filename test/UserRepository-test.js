@@ -67,12 +67,16 @@ describe("getHydrationData", function () {
 
 describe("specific oz", function () {
   it("should return the ounces of water drank on a specific date", function () {
-    const date = "2023/03/24";
-    const expectedOunces = 28;
-
-    const result = specificOuncesByDay(date, hydroData);
-    expect(result).to.equal(expectedOunces);
+    const user = { id: 1 };
+    const result = specificOuncesByDay("2023/03/24", hydroData, user);
+    expect(result).to.equal(28);
   });
+});
+it("should return 0 if no data is found for the specific date", function () {
+  const user = { id: 1 };
+  const date = "1111/11/11";
+  const result = specificOuncesByDay(date, hydroData, user);
+  expect(result).to.equal(0);
 });
 
 it("should return week of data", function () {
