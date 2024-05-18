@@ -19,7 +19,14 @@ function getAverageSleepHours(user, sleepArray) {
     return totalQuality / userSleepData.length;
   }
 
+  function specificSleepHoursByDay(date, sleepArray, user) {
+    const userSleepData = sleepArray.filter((userP) => userP.userID === user.id);
+    const specificDate = userSleepData.find((day) => day.date === date);
+    return specificDate ? specificDate.hoursSlept : 0;
+  }
+
 export {
     getAverageSleepHours,
-    getAverageSleepQuality
+    getAverageSleepQuality,
+    specificSleepHoursByDay
   };
