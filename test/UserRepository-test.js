@@ -83,7 +83,7 @@ describe("specific oz", function () {
 
   it("should return week of data", function () {
     const user = { id: 1 };
-    const extendedHydrationData = [
+    const mockHydrationData = [
       { userID: 1, date: "2023/06/25", numOunces: 50 },
       { userID: 1, date: "2023/06/26", numOunces: 41 },
       { userID: 1, date: "2023/06/27", numOunces: 95 },
@@ -92,7 +92,7 @@ describe("specific oz", function () {
       { userID: 1, date: "2023/06/30", numOunces: 62 },
       { userID: 1, date: "2023/07/01", numOunces: 91 },
     ];
-    const result = weekOfHydroData(user, extendedHydrationData);
-    expect(result).to.deep.equal(extendedHydrationData);
+    const result = weekOfHydroData(user, mockHydrationData);
+    expect(result).to.deep.equal(mockHydrationData.reverse());
   });
 });

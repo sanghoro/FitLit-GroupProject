@@ -51,6 +51,7 @@ export function fetchActivityData() {
       return data.activityData;
     });
 }
+
 export default {
   fetchUserData,
   fetchHydrationData,
