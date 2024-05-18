@@ -1,83 +1,90 @@
-// //imports
-import { fetchUserData, fetchHydrationData, fetchSleepData, fetchActivityData } from "./apiCalls.js";
+// imports
 import "./css/styles.css";
-// import displayUserInfo, { displayHydroData } from "./domUpdates.js";
-// import hydration from "./data/hydration.js";
-// import {
-//   userSteps,
-//   getRandomIndex,
-//   getUserDataById,
-//   usersArray,
-// } from "./userDataFunctions.js";
-// import { hydroData, usersOunces, weekOfHydro, weekOfHydroData, ouncesByDate} from "./hydrationDataFunctions.js";
+import displayUserInfo, { displayHydroData } from "./domUpdates.js";
+import {
+  fetchUserData,
+  fetchHydrationData,
+  fetchSleepData,
+  fetchActivityData,
+} from "./apiCalls.js";
 
-// //Global
-// // var hydroData = hydration.hydrationData;
-// var randomUser = getUserDataById(getRandomIndex(usersArray), usersArray);
+import {
+  setLoggedInUser,
+  getLoggedInUser,
+  getRandomIndex,
+} from "./userDataFunctions.js";
 
-// // function invokations
-// // weekOfHydroData(randomUser, hydroData);
-// // getHydrationData(randomUser, hydroData);
-// // specificOuncesByDay("2023/06/12", hydroData);
+import {
+  specificOuncesByDay,
+  getHydrationData,
+  weekOfHydroData,
+} from "./hydrationDataFunctions.js";
 
+// Global variables
+let userData;
+let hydroData;
+let sleepData;
+let activityData;
 
-
-// //must comment/uncomment below function and Queryselectors in domUpdates.js when wanting to run test in terminal
-// displayUserInfo(randomUser);
-// console.log('::::,', weekOfHydro)
-// displayHydroData(weekOfHydro,usersOunces)
-
-// export { hydroData, userSteps };
-
-//TEST FETCHALL
-
-let userData, hydroData, sleepData, activityData;
-
+// Functions for fetching data
 function fetchAllData() {
-    // Fetch all the data
-    const userDataPromise = fetchUserData();
-    const hydroDataPromise = fetchHydrationData();
-    const sleepDataPromise = fetchSleepData();
-    const activityDataPromise = fetchActivityData();
+  const userDataPromise = fetchUserData();
+  const hydroDataPromise = fetchHydrationData();
+  const sleepDataPromise = fetchSleepData();
+  const activityDataPromise = fetchActivityData();
 
-    // Wait for all promises to resolve
-    return Promise.all([userDataPromise, hydroDataPromise, sleepDataPromise, activityDataPromise])
-        .then((data) => {
-          console.log('Data fetched successfully:', data);
-            userData = data[0];
-            hydroData = data[1];
-            sleepData = data[2];
-            activityData = data[3];
-        })
-        .catch((error) => {
-            console.error('Error fetching data:', error);
-            throw error; // Propagate the error so it can be handled by the caller
-        });
+  return Promise.all([
+    userDataPromise,
+    hydroDataPromise,
+    sleepDataPromise,
+    activityDataPromise,
+  ])
+    .then((data) => {
+      console.log("Data fetched successfully:", data);
+      userData = data[0];
+      hydroData = data[1];
+      sleepData = data[2];
+      activityData = data[3];
+
+      const randomIndex = getRandomIndex(userData);
+      setLoggedInUser(userData[randomIndex].id);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+      throw error;
+    });
 }
 
 function getUserData() {
-  console.log('Fetching user data:', userData);
+  console.log("Fetching user data:", userData);
   return userData;
 }
 
 function getHydroData() {
-  console.log('Fetching hydration data:', hydroData);
+  console.log("Fetching hydration data:", hydroData);
   return hydroData;
 }
 
 function getSleepData() {
-  console.log('Fetching sleep data:', sleepData);
+  console.log("Fetching sleep data:", sleepData);
   return sleepData;
 }
 
 function getActivityData() {
-  console.log('Fetching activity data:', activityData);
+  console.log("Fetching activity data:", activityData);
   return activityData;
 }
 
+//Initial value(?) when loaded
 fetchAllData().then(() => {
-  console.log('User Data:', getUserData());
-  console.log('Hydration Data:', getHydroData());
-  console.log('Sleep Data:', getSleepData());
-  console.log('Activity Data:', getActivityData());
+  const loggedInUser = getLoggedInUser();
+  displayUserInfo(loggedInUser);
+
+  const date = "2023/07/01";
+  const ouncesByDate = specificOuncesByDay(date, hydroData, loggedInUser);
+  const usersOunces = getHydrationData(loggedInUser, hydroData);
+  const weekOfHydro = weekOfHydroData(loggedInUser, hydroData);
+  displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate);
 });
+
+export { getUserData, getHydroData, getSleepData, getActivityData };

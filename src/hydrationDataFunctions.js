@@ -1,59 +1,45 @@
-import hydration from "./data/hydration";
-import { getLoggedInUser, loggedInUser } from "./userDataFunctions";
+//imports
+import { fetchHydrationData } from "./apiCalls.js";
+import { getLoggedInUser } from "./userDataFunctions";
 
-// Global
-var hydroData = hydration.hydrationData;
+//functions
+function initializeHydrationData() {
+  return fetchHydrationData().then((hydroData) => {
+    const loggedInUser = getLoggedInUser();
+    const weekOfHydro = weekOfHydroData(loggedInUser, hydroData);
+    const usersOunces = getHydrationData(loggedInUser, hydroData);
+    const ouncesByDate = specificOuncesByDay(
+      "2023/07/01",
+      hydroData,
+      loggedInUser
+    );
+    console.log("newFetchedHydroData", hydroData);
+    return { weekOfHydro, usersOunces, ouncesByDate };
+  });
+}
 
-var weekOfHydro = weekOfHydroData(loggedInUser, hydroData);
-var usersOunces = getHydrationData(loggedInUser, hydroData);
-var ouncesByDate = specificOuncesByDay("2023/03/24", hydroData, loggedInUser);
-
-// Functions
-function getHydrationData(user, hydroData) {
-  var userHydroData = hydroData.filter((userP) => userP.userID === user.id);
-
+function getHydrationData(user, hydroArray) {
+  const userHydroData = hydroArray.filter((userP) => userP.userID === user.id);
   const totalOunces = userHydroData.reduce(
     (total, day) => total + day.numOunces,
     0
   );
-
-  const averageOunces = totalOunces / userHydroData.length;
-
-  return averageOunces;
+  return totalOunces / userHydroData.length;
 }
-
-function specificOuncesByDay(date, hydroData, user) {
-  var userHydroData = hydroData.filter((userP) => userP.userID === user.id);
+function specificOuncesByDay(date, hydroArray, user) {
+  const userHydroData = hydroArray.filter((userP) => userP.userID === user.id);
   const specificDate = userHydroData.find((day) => day.date === date);
   return specificDate ? specificDate.numOunces : 0;
 }
-
-function weekOfHydroData(user, hydroData) {
-  const userHydroData = hydroData.filter((userP) => userP.userID === user.id);
-
-  const weekData = userHydroData.slice(-7);
-  return weekData;
+function weekOfHydroData(user, hydroArray) {
+  const userHydroData = hydroArray.filter((userP) => userP.userID === user.id);
+  return userHydroData.slice(-7).reverse();
 }
 
-function initializeHydrationData() {
-  const loggedInUser = getLoggedInUser();
-  const weekOfHydro = weekOfHydroData(loggedInUser, hydroData);
-  const usersOunces = getHydrationData(loggedInUser, hydroData);
-  const ouncesByDate = specificOuncesByDay(
-    "2023/03/24",
-    hydroData,
-    loggedInUser
-  );
-  return { weekOfHydro, usersOunces, ouncesByDate };
-}
-
+//exports
 export {
-  hydroData,
-  getHydrationData,
-  weekOfHydroData,
-  specificOuncesByDay,
-  weekOfHydro,
-  usersOunces,
-  ouncesByDate,
   initializeHydrationData,
+  getHydrationData,
+  specificOuncesByDay,
+  weekOfHydroData,
 };
