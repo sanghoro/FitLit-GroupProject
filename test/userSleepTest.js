@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { getAverageSleepHours } from "../src/sleepDataFunctions.js";
+import { getAverageSleepHours, getAverageSleepQuality } from "../src/sleepDataFunctions.js";
 
 // Mock Data
 const usersArray = [
@@ -19,28 +19,24 @@ const sleepData = [
 
 describe("Sleep Data Functions", () => {
   describe("getAverageSleepHours", () => {
-    // Normal return
     it("should return the average hours slept per day for a user", () => {
       const user = usersArray[0];
       const result = getAverageSleepHours(user, sleepData);
       expect(result).to.equal((9.6 + 7.8 + 8.2) / 3);
     });
 
-    // No sleep data for the user
     it("should return NaN if there is no sleep data for the user", () => {
       const user = { id: 4, name: "Literally Who?", dailyStepGoal: 5000 };
       const result = getAverageSleepHours(user, sleepData);
       expect(result).to.be.NaN;
     });
 
-    // No sleep data provided at all
     it("should return NaN if the sleep data array is empty", () => {
       const user = usersArray[0];
       const result = getAverageSleepHours(user, []);
       expect(result).to.be.NaN;
     });
 
-    // User exists but has no sleep data
     it("should return NaN if the user exists but has no sleep data entries", () => {
       const user = usersArray[0];
       const emptySleepData = sleepData.filter(entry => entry.userID !== user.id);
@@ -48,4 +44,18 @@ describe("Sleep Data Functions", () => {
       expect(result).to.be.NaN;
     });
   });
+
+  describe("getAverageSleepQuality", () => {
+    it("should return the average sleep quality per day for a user", () => {
+      const user = usersArray[0];
+      const result = getAverageSleepQuality(user, sleepData);
+      expect(result).to.equal((4.3 + 3.8 + 4.1) / 3);
+    });
+
+    it("should return NaN if there is no sleep data for the user", () => {
+      const user = { id: 4, name: "Non Existent User", dailyStepGoal: 5000 };
+      const result = getAverageSleepQuality(user, sleepData);
+      expect(result).to.be.NaN;
+        });
+    });
 });
