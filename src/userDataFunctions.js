@@ -1,48 +1,48 @@
-//imports
-import users from "./data/users";
-// import displayUserInfo from './domUpdates.js' <<< causing issue
+// imports
+import { fetchUserData } from "./apiCalls.js";
 
-//global
-
-var usersArray = users.users;
-var userSteps = avgSteps(usersArray);
-var randomUser = getUserDataById(getRandomIndex(usersArray), usersArray);
-var loggedInUser = randomUser;
+// global variables
+let newUserData = [];
+let userSteps = 0;
+let randomUser = {};
+let loggedInUser = {};
 
 //functions
+function initializeUserData() {
+  fetchUserData().then((data) => {
+    newUserData = data;
+    userSteps = avgSteps(newUserData);
+    randomUser = getUserDataById(getRandomIndex(newUserData), newUserData);
+    loggedInUser = randomUser;
+  });
+}
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
-
-function getUserDataById(userID, usersArray) {
-  var userData = usersArray.find((user) => user.id === userID);
-  return userData;
+function getUserDataById(userID, userDataArray) {
+  return userDataArray.find((user) => user.id === userID);
 }
-
-function avgSteps(userArray) {
-  const userSteps = userArray.reduce((acc, user) => {
-    acc += user.dailyStepGoal / userArray.length;
-    return acc;
+function avgSteps(userDataArray) {
+  return userDataArray.reduce((acc, user) => {
+    return acc + user.dailyStepGoal / userDataArray.length;
   }, 0);
-  return userSteps;
 }
-
 function setLoggedInUser(userID) {
-  loggedInUser = getUserDataById(userID, usersArray);
+  loggedInUser = getUserDataById(userID, newUserData);
 }
-
 function getLoggedInUser() {
   return loggedInUser;
 }
 
-//exports
+initializeUserData();
+
+// exports
 export {
   getRandomIndex,
   getUserDataById,
   randomUser,
   userSteps,
   avgSteps,
-  usersArray,
   setLoggedInUser,
   getLoggedInUser,
   loggedInUser,

@@ -1,51 +1,48 @@
+// imports
 import {
   userSteps,
-  randomUser,
   setLoggedInUser,
   getLoggedInUser,
 } from "./userDataFunctions.js";
+
 import {
-  hydroData,
-  usersOunces,
-  weekOfHydro,
-  ouncesByDate,
-  specificOuncesByDay,
   initializeHydrationData,
+  specificOuncesByDay,
 } from "./hydrationDataFunctions.js";
 
-// Must comment/uncomment below querySelectors
-
+// Query selectors
 var userCard = document.querySelector(".card1");
 var welcomeUser = document.querySelector(".card-banner");
 var widgetBox = document.querySelector(".card2");
 
+// Functions
 function initializeAndDisplayData() {
-  const { weekOfHydro, usersOunces, ouncesByDate } = initializeHydrationData();
-  const loggedInUser = getLoggedInUser();
+  initializeHydrationData().then(
+    ({ weekOfHydro, usersOunces, ouncesByDate }) => {
+      const loggedInUser = getLoggedInUser();
+      displayUserInfo(loggedInUser);
+      displayHydroData("2023/07/01", weekOfHydro, usersOunces, ouncesByDate);
+    }
+  );
 }
-
-displayUserInfo(randomUser);
-displayHydroData("2023/03/24", hydroData, randomUser);
-setLoggedInUser();
-initializeAndDisplayData();
-
 export default function displayUserInfo(user) {
   userCard.innerHTML = `
-  <section class='user-card'> 
-  <h3>User id is ${user.id}</h3>
-  <h3>${user.name}'s daily step goal is ${user.dailyStepGoal} steps</h3>
-  <h3>The average step goal is ${userSteps}</h3>
-  </section>
+    <section class='user-card'> 
+      <h3>User id is ${user.id}</h3>
+      <h3>${user.name}'s daily step goal is ${user.dailyStepGoal} steps</h3>
+      <h3>The average step goal is ${userSteps}</h3>
+    </section>
   `;
   welcomeUser.innerText = `Welcome, ${user.name}`;
 }
-
-export function displayHydroData(date, hydroData, user) {
-  const ouncesByDate = specificOuncesByDay(date, hydroData, user);
+export function displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate) {
   widgetBox.innerHTML = `
-  <div class='widget'>
-  <h3>You have consumed ${ouncesByDate} ounces of water today.</h3>
-  <h3>Average ounces consumed: ${usersOunces}</h3>
-  <h3>Past week's water consumption: ${weekOfHydro.map((day) => day.numOunces).join(", ")}</h3>
-  </div>`;
+    <div class='widget'>
+      <h3>You have consumed ${ouncesByDate} ounces of water today.</h3>
+      <h3>Average ounces consumed: ${usersOunces}</h3>
+      <h3>Past week's water consumption: (From today to past 7 days) ${weekOfHydro.map((day) => day.numOunces).join(", ")}</h3>
+    </div>`;
 }
+
+setLoggedInUser();
+initializeAndDisplayData();
