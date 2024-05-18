@@ -5,10 +5,7 @@ import {
   getLoggedInUser,
 } from "./userDataFunctions.js";
 
-import {
-  initializeHydrationData,
-  specificOuncesByDay,
-} from "./hydrationDataFunctions.js";
+import { specificOuncesByDay } from "./hydrationDataFunctions.js";
 
 // Query selectors
 var userCard = document.querySelector(".card1");
@@ -16,15 +13,6 @@ var welcomeUser = document.querySelector(".card-banner");
 var widgetBox = document.querySelector(".card2");
 
 // Functions
-function initializeAndDisplayData() {
-  initializeHydrationData().then(
-    ({ weekOfHydro, usersOunces, ouncesByDate }) => {
-      const loggedInUser = getLoggedInUser();
-      displayUserInfo(loggedInUser);
-      displayHydroData("2023/07/01", weekOfHydro, usersOunces, ouncesByDate);
-    }
-  );
-}
 export default function displayUserInfo(user) {
   userCard.innerHTML = `
     <section class='user-card'> 
@@ -45,4 +33,3 @@ export function displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate) {
 }
 
 setLoggedInUser();
-initializeAndDisplayData();

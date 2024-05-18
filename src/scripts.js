@@ -12,42 +12,42 @@ import {
   setLoggedInUser,
   getLoggedInUser,
   getRandomIndex,
+  getUserDataById,
+  avgSteps,
+  setUserData,
 } from "./userDataFunctions.js";
 
 import {
   specificOuncesByDay,
   getHydrationData,
   weekOfHydroData,
+  setHydroData,
 } from "./hydrationDataFunctions.js";
 
 // Global variables
-let userData;
-let hydroData;
-let sleepData;
-let activityData;
+let userData = [];
+let hydroData = [];
+let sleepData = [];
+let activityData = [];
+let userSteps = 0;
 
-// Functions for fetching data
 function fetchAllData() {
-  const userDataPromise = fetchUserData();
-  const hydroDataPromise = fetchHydrationData();
-  const sleepDataPromise = fetchSleepData();
-  const activityDataPromise = fetchActivityData();
+  return fetchUserData()
+    .then((userDataResult) => {
+      initializeUserData(userDataResult);
+      return fetchHydrationData();
+    })
+    .then((hydrationDataResult) => {
+      const hydrationData = initializeHydrationData(hydrationDataResult);
 
-  return Promise.all([
-    userDataPromise,
-    hydroDataPromise,
-    sleepDataPromise,
-    activityDataPromise,
-  ])
-    .then((data) => {
-      console.log("Data fetched successfully:", data);
-      userData = data[0];
-      hydroData = data[1];
-      sleepData = data[2];
-      activityData = data[3];
+      const loggedInUser = getLoggedInUser();
+      displayUserInfo(loggedInUser);
 
-      const randomIndex = getRandomIndex(userData);
-      setLoggedInUser(userData[randomIndex].id);
+      const date = "2023/07/01";
+      const ouncesByDate = hydrationData.ouncesByDate;
+      const usersOunces = hydrationData.usersOunces;
+      const weekOfHydro = hydrationData.weekOfHydro;
+      displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate);
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
@@ -55,36 +55,29 @@ function fetchAllData() {
     });
 }
 
-function getUserData() {
-  console.log("Fetching user data:", userData);
-  return userData;
+// Initializing datas
+function initializeUserData(data) {
+  userData = data;
+  setUserData(data);
+  userSteps = avgSteps(userData);
+  const randomUser = getUserDataById(getRandomIndex(userData), userData);
+  setLoggedInUser(randomUser.id);
 }
 
-function getHydroData() {
-  console.log("Fetching hydration data:", hydroData);
-  return hydroData;
-}
-
-function getSleepData() {
-  console.log("Fetching sleep data:", sleepData);
-  return sleepData;
-}
-
-function getActivityData() {
-  console.log("Fetching activity data:", activityData);
-  return activityData;
-}
-
-//Initial value(?) when loaded
-fetchAllData().then(() => {
+function initializeHydrationData(data) {
+  hydroData = data;
+  setHydroData(data);
   const loggedInUser = getLoggedInUser();
-  displayUserInfo(loggedInUser);
-
-  const date = "2023/07/01";
-  const ouncesByDate = specificOuncesByDay(date, hydroData, loggedInUser);
-  const usersOunces = getHydrationData(loggedInUser, hydroData);
   const weekOfHydro = weekOfHydroData(loggedInUser, hydroData);
-  displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate);
-});
+  const usersOunces = getHydrationData(loggedInUser, hydroData);
+  const ouncesByDate = specificOuncesByDay(
+    "2023/07/01",
+    hydroData,
+    loggedInUser
+  );
+  return { weekOfHydro, usersOunces, ouncesByDate };
+}
 
-export { getUserData, getHydroData, getSleepData, getActivityData };
+fetchAllData();
+
+export { getLoggedInUser };
