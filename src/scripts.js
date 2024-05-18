@@ -78,6 +78,18 @@ function initializeHydrationData(data) {
   return { weekOfHydro, usersOunces, ouncesByDate };
 }
 
-fetchAllData();
+function initializeSleepData(data) {
+  sleepData = data
+  const loggedInUser = getLoggedInUser();
+  return fetchSleepData().then((sleepData) => {
+    console.log("Fetched Sleep Data:", sleepData);
+    return sleepData;
+  }).catch((error) => {
+    console.error("Error fetching sleep data:", error);
+  });
+}
 
+
+fetchAllData();
+initializeSleepData()
 export { getLoggedInUser };
