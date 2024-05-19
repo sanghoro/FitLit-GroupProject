@@ -27,7 +27,13 @@ function checkIfDisplayed(user) {
 
     userCard.innerHTML = `
       <section class='allInfoCard'>
-        
+      <h3>User id: #${user.id}</h3> 
+      <h3>Full name: ${user.name}</h3>
+      <h3>Email: ${user.email}</h3>
+      <h3>Adress: ${user.address}</h3>
+      <h3>Friends: goes here, Seong.</h3>
+      <h3>Daily Step Goal: ${user.dailyStepGoal}</h3>
+      <h3>Stride Length: ${user.strideLength}</h3>
       </section>
       <button class='moreInfoBttn'>Hide</button>
     `;
