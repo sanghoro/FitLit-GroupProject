@@ -29,6 +29,7 @@ function getLoggedInUser() {
 
 function setUserData(data) {
   newUserData = data;
+  userSteps = avgSteps(data);
 }
 
 // exports
