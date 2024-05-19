@@ -35,7 +35,7 @@ function getAverageSleepHours(user, sleepArray) {
     const userSleepData = sleepArray.filter((entry) => entry.userID === user.id);
     const start = new Date(startDate);
     const end = new Date(startDate);
-    end.setDate(start.getDate() + 6); // End date is 6 days after start date
+    end.setDate(start.getDate() + 6);
   
     const sleepDataForWeek = userSleepData.filter((entry) => {
       const entryDate = new Date(entry.date);
@@ -48,6 +48,35 @@ function getAverageSleepHours(user, sleepArray) {
     }));
   }
 
+  function sleepQualityForWeek(user, sleepArray, startDate) {
+    const userSleepData = sleepArray.filter((entry) => entry.userID === user.id);
+    const start = new Date(startDate);
+    const end = new Date(startDate);
+    end.setDate(start.getDate() + 6);
+  
+    const sleepDataForWeek = userSleepData.filter((entry) => {
+      const entryDate = new Date(entry.date);
+      return entryDate >= start && entryDate <= end;
+    });
+  
+    // Create an empty array with all the dates within the week
+    const weekDates = [];
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(start);
+      date.setDate(start.getDate() + i);
+      weekDates.push(date.toISOString().split('T')[0].replace(/-/g, '/'));
+    }
+  
+    // Map dates to the corresponding sleep quality or 0 if no data is present
+    return weekDates.map(date => {
+      const dayData = sleepDataForWeek.find(entry => entry.date === date);
+      return {
+        date,
+        sleepQuality: dayData ? dayData.sleepQuality : 0
+      };
+    });
+  }
+  
 
   function setSleepData(data) {
     newSleepData = data;
@@ -58,5 +87,6 @@ export {
     specificSleepHoursByDay,
     specificSleepQualityByDay,
     sleepHoursForWeek,
+    sleepQualityForWeek,
     setSleepData
   };
