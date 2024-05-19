@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { getAverageSleepHours, getAverageSleepQuality, specificSleepHoursByDay } from "../src/sleepDataFunctions.js";
+import { getAverageSleepHours, getAverageSleepQuality, specificSleepHoursByDay, specificSleepQualityByDay } from "../src/sleepDataFunctions.js";
 
 // Mock Data
 const usersArray = [
@@ -71,6 +71,22 @@ describe("Sleep Data Functions", () => {
           const user = usersArray[0];
           const date = "2023/03/23";
           const result = specificSleepHoursByDay(date, sleepData, user);
+          expect(result).to.equal(0);
+        });
+    });
+
+    describe("specificSleepQualityByDay", () => {
+        it("should return the sleep quality on a specific date for a user", () => {
+          const user = usersArray[0];
+          const date = "2023/03/24";
+          const result = specificSleepQualityByDay(date, sleepData, user);
+          expect(result).to.equal(4.3);
+        });
+    
+        it("should return 0 if there is no sleep quality data for the user on the specific date", () => {
+          const user = usersArray[0];
+          const date = "2023/03/23";
+          const result = specificSleepQualityByDay(date, sleepData, user);
           expect(result).to.equal(0);
         });
     });
