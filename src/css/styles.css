@@ -60,7 +60,6 @@ body {
 }
 .card2 {
   display: grid;
-  border: 2px green solid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr 1fr;
   grid-row: 1 / 5;
@@ -72,10 +71,13 @@ body {
   grid-row: 5 / 7;
 }
 .widget {
+  color: black;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: antiquewhite;
+  background-color: rgb(255, 255, 255);
+  border-radius: 2rem;
+  margin: 1rem;
 
 }
 .widget1 {
@@ -85,7 +87,7 @@ body {
 
 .widget2 {
   grid-column: 2 / 3;
-  grid-row: 1 /2;
+  grid-row: 1 / 3;
 
 }
 
