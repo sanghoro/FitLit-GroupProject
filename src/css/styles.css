@@ -51,7 +51,7 @@ body {
   grid-row: 1 / 2;
   grid-column: 1 / 3;
   background-color: transparent;
-  box-shadow: none;
+
 }
 
 .card1 {
@@ -59,10 +59,36 @@ body {
   grid-column: 1 / 3;
 }
 .card2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
   grid-row: 1 / 5;
   grid-column: 3 / 7;
+  gap: 2rem;
 }
 .card3 {
   grid-column: 1 / 7;
   grid-row: 5 / 7;
 }
+.widget {
+  color: black;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgb(255, 255, 255);
+  border-radius: 2rem;
+  margin: 1rem;
+
+}
+.widget1 {
+  grid-row: 1/ 2;
+  grid-column: 1/ 2;
+}
+
+.widget2 {
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
+
+}
+
+

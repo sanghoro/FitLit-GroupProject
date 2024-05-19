@@ -1,6 +1,6 @@
 // imports
 import "./css/styles.css";
-import displayUserInfo, { displayHydroData } from "./domUpdates.js";
+import displayUserInfo, { displayHydroData, displaySleepData } from "./domUpdates.js";
 import {
   fetchUserData,
   fetchHydrationData,
@@ -23,6 +23,7 @@ import {
   weekOfHydroData,
   setHydroData,
 } from "./hydrationDataFunctions.js";
+import { getAverageSleepHours, getAverageSleepQuality, setSleepData, sleepHoursForWeek, sleepQualityForWeek, specificSleepHoursByDay, specificSleepQualityByDay } from "./sleepDataFunctions.js";
 
 // Global variables
 let userData = [];
@@ -39,7 +40,7 @@ function fetchAllData() {
     })
     .then((hydrationDataResult) => {
       const hydrationData = initializeHydrationData(hydrationDataResult);
-
+      console.log(hydrationData)
       const loggedInUser = getLoggedInUser();
       displayUserInfo(loggedInUser);
 
@@ -47,7 +48,23 @@ function fetchAllData() {
       const ouncesByDate = hydrationData.ouncesByDate;
       const usersOunces = hydrationData.usersOunces;
       const weekOfHydro = hydrationData.weekOfHydro;
-      displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate);
+      displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate); 
+      return fetchSleepData();
+    })
+    .then((sleepDataResult) => {
+      const fetchedSleepData = initializeSleepData(sleepDataResult)
+      console.log('sleeep::::::::', fetchedSleepData)
+      
+      const avgSleepHours = fetchedSleepData.avgSleepHours
+      const avgSleepQuality = fetchedSleepData.avgSleepQuality
+      const sleepHoursByDay = fetchedSleepData.sleepHoursByDay
+      const hoursSleptThisWeek = fetchedSleepData.hoursSleptThisWeek
+      
+      const sleepQualityByDay = fetchedSleepData.sleepQualityByDay
+      const sleepQualityByWeek = fetchedSleepData.sleepQualityByWeek
+      console.log(sleepQualityByWeek)
+      displaySleepData(avgSleepHours, avgSleepQuality, sleepHoursByDay, sleepQualityByDay, hoursSleptThisWeek, sleepQualityByWeek)
+      
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
@@ -80,13 +97,15 @@ function initializeHydrationData(data) {
 
 function initializeSleepData(data) {
   sleepData = data
+  setSleepData(data)
   const loggedInUser = getLoggedInUser();
-  return fetchSleepData().then((sleepData) => {
-    console.log("Fetched Sleep Data:", sleepData);
-    return sleepData;
-  }).catch((error) => {
-    console.error("Error fetching sleep data:", error);
-  });
+  const avgSleepHours = getAverageSleepHours(loggedInUser, sleepData)
+  const avgSleepQuality = getAverageSleepQuality(loggedInUser, sleepData)
+  const sleepHoursByDay = specificSleepHoursByDay( "2023/07/01", sleepData, loggedInUser)
+  const sleepQualityByDay = specificSleepQualityByDay("2023/07/01", sleepData, loggedInUser)
+  const hoursSleptThisWeek = sleepHoursForWeek(loggedInUser, sleepData, "2023/05/26")
+  const sleepQualityByWeek = sleepQualityForWeek(loggedInUser, sleepData, "2023/05/26")
+  return { avgSleepHours, avgSleepQuality, sleepHoursByDay, sleepQualityByDay, hoursSleptThisWeek, sleepQualityByWeek } 
 }
 
 
