@@ -9,20 +9,56 @@ import { specificOuncesByDay } from "./hydrationDataFunctions.js";
 
 // Query selectors
 var userCard = document.querySelector(".card1");
+var allInfoCard = document.querySelectorAll('.allInfoCard')
 var welcomeUser = document.querySelector(".card-banner");
 var widgetBox = document.querySelector(".card2");
 
+
+var isAllUserInfoDisplayed = false;
+
 // Functions
 export default function displayUserInfo(user) {
-  userCard.innerHTML = `
-    <section class='user-card'> 
-      <h3>User id: #${user.id}</h3>
-      <h3>${user.name.split(" ")[0]}'s daily step goal is ${user.dailyStepGoal} steps</h3>
-      <h3>The average step goal is ${userSteps}</h3>
-    </section>
-  `;
   welcomeUser.innerText = `Welcome, ${user.name.split(" ")[0]}`;
+  checkIfDisplayed(user);
 }
+
+function checkIfDisplayed(user) {
+  if (isAllUserInfoDisplayed) {
+
+    userCard.innerHTML = `
+      <section class='allInfoCard'>
+      <h3>User id: #${user.id}</h3> 
+      <h3>Full name: ${user.name}</h3>
+      <h3>Email: ${user.email}</h3>
+      <h3>Adress: ${user.address}</h3>
+      <h3>Friends: goes here, Seong.</h3>
+      <h3>Daily Step Goal: ${user.dailyStepGoal}</h3>
+      <h3>Stride Length: ${user.strideLength}</h3>
+      </section>
+      <button class='moreInfoBttn'>Hide</button>
+    `;
+    userCard.classList.add('allInfoCard');
+  } else {
+    userCard.classList.remove('allInfoCard');
+    userCard.innerHTML = `
+      <section class='user-card'> 
+        <h3>User id: #${user.id}</h3>
+        <h3>${user.name.split(" ")[0]}'s daily step goal is ${user.dailyStepGoal} steps</h3>
+        <h3>The average step goal is ${userSteps}</h3>
+      </section>
+      <button class='moreInfoBttn'>More User Info</button>
+    `;
+    
+  }
+  var infoBttn = document.querySelector('.moreInfoBttn');
+  infoBttn.addEventListener('click', toggleUserInfo);
+}
+
+function toggleUserInfo() {
+  isAllUserInfoDisplayed = !isAllUserInfoDisplayed;
+  checkIfDisplayed(getLoggedInUser());
+}
+
 export function displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate) {
   widgetBox.innerHTML = `
     <div class='widget widget1'>

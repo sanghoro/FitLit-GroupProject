@@ -25,6 +25,7 @@ import {
 } from "./hydrationDataFunctions.js";
 import { getAverageSleepHours, getAverageSleepQuality, setSleepData, sleepHoursForWeek, sleepQualityForWeek, specificSleepHoursByDay, specificSleepQualityByDay } from "./sleepDataFunctions.js";
 
+
 // Global variables
 let userData = [];
 let hydroData = [];
@@ -40,7 +41,6 @@ function fetchAllData() {
     })
     .then((hydrationDataResult) => {
       const hydrationData = initializeHydrationData(hydrationDataResult);
-      console.log(hydrationData)
       const loggedInUser = getLoggedInUser();
       displayUserInfo(loggedInUser);
 
@@ -48,23 +48,22 @@ function fetchAllData() {
       const ouncesByDate = hydrationData.ouncesByDate;
       const usersOunces = hydrationData.usersOunces;
       const weekOfHydro = hydrationData.weekOfHydro;
-      displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate); 
+      displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate);
       return fetchSleepData();
     })
     .then((sleepDataResult) => {
       const fetchedSleepData = initializeSleepData(sleepDataResult)
-      console.log('sleeep::::::::', fetchedSleepData)
-      
+
       const avgSleepHours = fetchedSleepData.avgSleepHours
       const avgSleepQuality = fetchedSleepData.avgSleepQuality
       const sleepHoursByDay = fetchedSleepData.sleepHoursByDay
       const hoursSleptThisWeek = fetchedSleepData.hoursSleptThisWeek
-      
+
       const sleepQualityByDay = fetchedSleepData.sleepQualityByDay
       const sleepQualityByWeek = fetchedSleepData.sleepQualityByWeek
-      console.log(sleepQualityByWeek)
+
       displaySleepData(avgSleepHours, avgSleepQuality, sleepHoursByDay, sleepQualityByDay, hoursSleptThisWeek, sleepQualityByWeek)
-      
+
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
@@ -101,11 +100,11 @@ function initializeSleepData(data) {
   const loggedInUser = getLoggedInUser();
   const avgSleepHours = getAverageSleepHours(loggedInUser, sleepData)
   const avgSleepQuality = getAverageSleepQuality(loggedInUser, sleepData)
-  const sleepHoursByDay = specificSleepHoursByDay( "2023/07/01", sleepData, loggedInUser)
+  const sleepHoursByDay = specificSleepHoursByDay("2023/07/01", sleepData, loggedInUser)
   const sleepQualityByDay = specificSleepQualityByDay("2023/07/01", sleepData, loggedInUser)
   const hoursSleptThisWeek = sleepHoursForWeek(loggedInUser, sleepData, "2023/05/26")
   const sleepQualityByWeek = sleepQualityForWeek(loggedInUser, sleepData, "2023/05/26")
-  return { avgSleepHours, avgSleepQuality, sleepHoursByDay, sleepQualityByDay, hoursSleptThisWeek, sleepQualityByWeek } 
+  return { avgSleepHours, avgSleepQuality, sleepHoursByDay, sleepQualityByDay, hoursSleptThisWeek, sleepQualityByWeek }
 }
 
 
