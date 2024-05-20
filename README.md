@@ -5,9 +5,13 @@ This project is about making a web application that lets users track their fitne
 
 ## Installation Instructions
 In your terminal, clone down the project [here](https://github.com/sanghoro/Flash-Cards)
+
 Start server by entering 'npm start'
+
 Command + L click the link `http://localhost:8080/`
+
 You can run tests by typing in 'npm test'
+
 You can close the server by 'ctrl + c'
 
 ## Preview
