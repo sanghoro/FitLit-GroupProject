@@ -19,5 +19,7 @@ Used Github Project for pre-planning [here](https://github.com/users/sanghoro/pr
 
 ## Contributors
 Adam Konber/ E-mail: Konber3@gmail.com / Github: https://github.com/Sterling47
+
 Jarvis Bailey/ E-mail: baileyjarvis2814@gmail.com / Github: https://github.com/baileyjarvis2814
+
 Seong Kang/  E-mail: seong.h.kang2@gmail.com / Github: https://github.com/sanghoro
