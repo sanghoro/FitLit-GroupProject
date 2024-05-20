@@ -1,4 +1,3 @@
-// imports
 import "./css/styles.css";
 import displayUserInfo, {
   displayHydroData,
@@ -36,7 +35,6 @@ import {
   specificSleepQualityByDay,
 } from "./sleepDataFunctions.js";
 
-// Global variables
 let userData = [];
 let hydroData = [];
 let sleepData = [];
@@ -81,7 +79,6 @@ function fetchAllData() {
     });
 }
 
-// Initializing data
 function initializeUserData(data) {
   userData = data;
   setUserData(data);

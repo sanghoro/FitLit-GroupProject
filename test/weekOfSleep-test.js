@@ -1,7 +1,6 @@
 import { expect } from "chai";
 import { sleepHoursForWeek, sleepQualityForWeek } from "../src/sleepDataFunctions.js";
 
-// Mock Data
 const usersArray = [
     { id: 1, name: "Trystan Gorczany", dailyStepGoal: 10000 },
     { id: 2, name: "Ollie Tabuger", dailyStepGoal: 8000 },
@@ -69,7 +68,7 @@ const usersArray = [
         });
 
         it("should return an array with zeros if the sleep data array is empty", () => {
-          const user = usersArray[0]; // Trystan Gorczany
+          const user = usersArray[0];
           const startDate = "2023/03/20";
           const result = sleepQualityForWeek(user, [], startDate);
           expect(result).to.deep.equal([
@@ -84,7 +83,7 @@ const usersArray = [
         });
     
         it("should return an array with zeros if the user exists but has no sleep data entries for the specified week", () => {
-          const user = usersArray[0]; // Trystan Gorczany
+          const user = usersArray[0];
           const startDate = "2023/02/01";
           const result = sleepQualityForWeek(user, sleepData, startDate);
           expect(result).to.deep.equal([

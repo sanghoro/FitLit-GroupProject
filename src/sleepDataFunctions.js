@@ -1,4 +1,3 @@
-// global variables
 let newSleepData = [];
 
 
@@ -26,7 +25,6 @@ function specificSleepHoursByDay(date, user) {
     return specificDate ? specificDate.hoursSlept : 0;
 }
 
-// Change: Removed sleepArray parameter, using newSleepData directly
 function specificSleepQualityByDay(date, user) {
     const userSleepData = newSleepData.filter((entry) => entry.userID === user.id);
     const specificDate = userSleepData.find((day) => day.date === date);
@@ -61,7 +59,6 @@ function sleepQualityForWeek(user, startDate) {
         return entryDate >= start && entryDate <= end;
     });
 
-    // Create an empty array with all the dates within the week
     const weekDates = [];
     for (let i = 0; i < 7; i++) {
         const date = new Date(start);
@@ -69,7 +66,6 @@ function sleepQualityForWeek(user, startDate) {
         weekDates.push(date.toISOString().split('T')[0].replace(/-/g, '/'));
     }
 
-    // Map dates to the corresponding sleep quality or 0 if no data is present
     return weekDates.map(date => {
         const dayData = sleepDataForWeek.find(entry => entry.date === date);
         return {

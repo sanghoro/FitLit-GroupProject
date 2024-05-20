@@ -1,10 +1,8 @@
-// global variables
 let newUserData = [];
 let userSteps = 0;
 let randomUser = {};
 let loggedInUser = {};
 
-// functions
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -32,7 +30,6 @@ function findFriends(user, userDataArray) {
   });
 }
 
-// exports
 export {
   getRandomIndex,
   getUserDataById,

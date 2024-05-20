@@ -1,4 +1,3 @@
-// imports
 import {
   userSteps,
   setLoggedInUser,
@@ -8,14 +7,12 @@ import {
 
 import { specificOuncesByDay } from "./hydrationDataFunctions.js";
 
-// Query selectors
 var userCard = document.querySelector(".card1");
 var welcomeUser = document.querySelector(".card-banner");
 var widgetBox = document.querySelector(".card2");
 
 var isAllUserInfoDisplayed = false;
 
-// Functions
 export default function displayUserInfo(user, userData) {
   welcomeUser.innerText = `Welcome, ${user.name.split(" ")[0]}`;
   checkIfDisplayed(user, userData);
