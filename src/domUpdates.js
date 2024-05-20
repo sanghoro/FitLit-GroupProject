@@ -41,7 +41,6 @@ function checkIfDisplayed(user, userData) {
   } else {
     userCard.innerHTML = `
       <section class='user-card'> 
-        <h3>User id: #${user.id}</h3>
         <h3>${user.name.split(" ")[0]}'s daily step goal is ${user.dailyStepGoal} steps</h3>
         <h3>The average step goal is ${userSteps}</h3>
         <button class='moreInfoBttn'>More User Info</button>
@@ -60,9 +59,9 @@ function toggleUserInfo(user, userData) {
 export function displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate) {
   widgetBox.innerHTML = `
     <div class='widget widget1'>
-      <h3>You consumed ${ouncesByDate}oz today.</h3>
-      <h3>Avg OZ consumed: ${usersOunces}</h3>
-      <h3>Past week's water consumption: (From today to past 7 days) ${weekOfHydro.map((day) => day.numOunces).join(", ")}</h3>
+      <h3>You drank ${ouncesByDate}oz of water today.</h3>
+      <h3>Average ounces of water consumed: ${usersOunces}</h3>
+      <h3>Water consumption last week: ${weekOfHydro.map((day) => day.numOunces).join(", ")}</h3>
     </div>`;
 }
 
@@ -76,11 +75,11 @@ export function displaySleepData(
 ) {
   widgetBox.innerHTML += `
   <div class='widget widget2'>
-  <h3>Avg Sleep: ${Math.round(avgSleepHours)} </h3>
-  <h3>Avg Sleep Quality: ${avgSleepQuality.toFixed(2)} </h3>
-  <h3>Hours slept Today: ${Math.round(sleepHoursByDay)}</h3>
-  <h3>Today's sleep quality: ${sleepQualityByDay}</h3>
+  <h3>You've slept ${Math.round(sleepHoursByDay)} hours last night</h3>
+  <h3>Last night's sleep quality was ${sleepQualityByDay}/5</h3>
+  <h3>Average sleep per week ${Math.round(avgSleepHours)} </h3>
+  <h3>Average sleep quality: ${avgSleepQuality.toFixed(2)} </h3>
   <h3>Hours slept this week: ${hoursSleptThisWeek.map((day) => Math.round(day.hoursSlept)).join(", ")} </h3>
-  <h3>Past weeks Sleep Quality: ${sleepQualityByWeek.map((day) => day.sleepQuality).join(", ")}</h3>
+  <h3>Sleep quality over 7 days: ${sleepQualityByWeek.map((day) => day.sleepQuality).join(", ")}</h3>
 </div>`;
 }
