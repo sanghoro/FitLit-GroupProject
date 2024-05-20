@@ -15,6 +15,7 @@ You can run tests by typing in 'npm test'
 You can close the server by 'ctrl + c'
 
 ## Preview
+![alt text](Gif/fitLit.GIF)
 
 ## Pre-Planning
 Used Github Project for pre-planning [here](https://github.com/users/sanghoro/projects/8/views/1)
