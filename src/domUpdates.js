@@ -17,7 +17,7 @@ var isAllUserInfoDisplayed = false;
 
 // Functions
 export default function displayUserInfo(user, userData) {
-  welcomeUser.innerText = `Welcome, ${user.name.split(" ")[0]}`;
+  welcomeUser.innerHTML = `<h3> Welcome,<span> ${user.name.split(" ")[0]}!</span>`;
   checkIfDisplayed(user, userData);
 }
 
@@ -27,22 +27,27 @@ function checkIfDisplayed(user, userData) {
     const friends = findFriends(user, userData);
     const friendsNames = friends.map((friend) => friend.name).join(", ");
     userCard.innerHTML = `
-      <section class='allInfoCard'>
-        <h3>User id: #${user.id}</h3> 
-        <h3>Full name: ${user.name}</h3>
-        <h3>Email: ${user.email}</h3>
-        <h3>Address: ${user.address}</h3>
-        <h3>Friends: ${friendsNames}</h3>
-        <h3>Daily Step Goal: ${user.dailyStepGoal}</h3>
-        <h3>Stride Length: ${user.strideLength}</h3>
+      <section class='user-card'>
+      <h2>User Profile</h2>
+      <div>
+        <h3><span>User id:</span> #${user.id}</h3> 
+        <h3><span>Full name:</span> ${user.name}</h3>
+        <h3><span>Email:</span> ${user.email}</h3>
+        <h3><span>Address:</span> ${user.address}</h3>
+        <h3><span>Friends:</span> ${friendsNames}</h3>
+        <h3><span>Daily Step Goal:</span> ${user.dailyStepGoal}</h3>
+        <h3><span>Stride Length:</span> ${user.strideLength}</h3>
         <button class='moreInfoBttn'>Hide</button>
+      </div>
       </section>
     `;
   } else {
     userCard.innerHTML = `
       <section class='user-card'> 
-        <h3>${user.name.split(" ")[0]}'s daily step goal is ${user.dailyStepGoal} steps</h3>
-        <h3>The average step goal is ${userSteps}</h3>
+        <div>
+          <h3><span>${user.name.split(" ")[0]}'s</span> daily step goal is <span>${user.dailyStepGoal} </span>steps</h3>
+          <h3>The <span>average</span> step goal is <span>${userSteps}</span></h3>
+        </div>
         <button class='moreInfoBttn'>More User Info</button>
       </section>
     `;
@@ -59,9 +64,12 @@ function toggleUserInfo(user, userData) {
 export function displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate) {
   widgetBox.innerHTML = `
     <div class='widget widget1'>
-      <h3>You drank ${ouncesByDate}oz of water today.</h3>
-      <h3>Average ounces of water consumed: ${usersOunces}</h3>
-      <h3>Water consumption last week: ${weekOfHydro.map((day) => day.numOunces).join(", ")}</h3>
+    <h2>Hydro Stats</h2>  
+    <div>
+      <h3>You drank <span>${ouncesByDate}oz</span> of water today.</h3>
+      <h3><span>Average</span> ounces of water consumed: <span>${usersOunces}</span></h3>
+      <h3><span>Water consumption</span> last week: <span>${weekOfHydro.map((day) => day.numOunces).join(", ")}</span></h3>
+      </div>
     </div>`;
 }
 
@@ -75,11 +83,14 @@ export function displaySleepData(
 ) {
   widgetBox.innerHTML += `
   <div class='widget widget2'>
-  <h3>You've slept ${Math.round(sleepHoursByDay)} hours last night</h3>
-  <h3>Last night's sleep quality was ${sleepQualityByDay}/5</h3>
-  <h3>Average sleep per week ${Math.round(avgSleepHours)} </h3>
-  <h3>Average sleep quality: ${avgSleepQuality.toFixed(2)} </h3>
-  <h3>Hours slept this week: ${hoursSleptThisWeek.map((day) => Math.round(day.hoursSlept)).join(", ")} </h3>
-  <h3>Sleep quality over 7 days: ${sleepQualityByWeek.map((day) => day.sleepQuality).join(", ")}</h3>
-</div>`;
+    <h2>Sleep Stats</h2>
+    <div>
+      <h3>You've slept <span>${Math.round(sleepHoursByDay)}</span> hours last night</h3>
+      <h3>Last night's <span>sleep quality</span> was <span>${sleepQualityByDay}</span>/5</h3>
+      <h3><span>Average</span> Hours of sleep per week ${Math.round(avgSleepHours)} </h3>
+      <h3><span>Average</span> sleep quality: <span>${avgSleepQuality.toFixed(2)}</span> </h3>
+      <h3><span>Hours slept</span> this week: <span>${hoursSleptThisWeek.map((day) => Math.round(day.hoursSlept)).join(", ")}</span> </h3>
+      <h3><span>Sleep quality</span> this Week: <span>${sleepQualityByWeek.map((day) => day.sleepQuality).join(", ")}</span></h3>
+    </div>
+  </div>`;
 }
