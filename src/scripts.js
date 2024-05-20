@@ -1,6 +1,9 @@
 // imports
 import "./css/styles.css";
-import displayUserInfo, { displayHydroData, displaySleepData } from "./domUpdates.js";
+import displayUserInfo, {
+  displayHydroData,
+  displaySleepData,
+} from "./domUpdates.js";
 import {
   fetchUserData,
   fetchHydrationData,
@@ -23,8 +26,15 @@ import {
   weekOfHydroData,
   setHydroData,
 } from "./hydrationDataFunctions.js";
-import { getAverageSleepHours, getAverageSleepQuality, setSleepData, sleepHoursForWeek, sleepQualityForWeek, specificSleepHoursByDay, specificSleepQualityByDay } from "./sleepDataFunctions.js";
-
+import {
+  getAverageSleepHours,
+  getAverageSleepQuality,
+  setSleepData,
+  sleepHoursForWeek,
+  sleepQualityForWeek,
+  specificSleepHoursByDay,
+  specificSleepQualityByDay,
+} from "./sleepDataFunctions.js";
 
 // Global variables
 let userData = [];
@@ -42,7 +52,7 @@ function fetchAllData() {
     .then((hydrationDataResult) => {
       const hydrationData = initializeHydrationData(hydrationDataResult);
       const loggedInUser = getLoggedInUser();
-      displayUserInfo(loggedInUser);
+      displayUserInfo(loggedInUser, userData);
 
       const date = "2023/07/01";
       const ouncesByDate = hydrationData.ouncesByDate;
@@ -95,6 +105,8 @@ function initializeHydrationData(data) {
 }
 
 function initializeSleepData(data) {
+  sleepData = data;
+  setSleepData(data);
   sleepData = data;
   setSleepData(data);
   const loggedInUser = getLoggedInUser();

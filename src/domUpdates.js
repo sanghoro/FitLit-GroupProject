@@ -3,27 +3,28 @@ import {
   userSteps,
   setLoggedInUser,
   getLoggedInUser,
+  findFriends,
 } from "./userDataFunctions.js";
 
 import { specificOuncesByDay } from "./hydrationDataFunctions.js";
 
 // Query selectors
 var userCard = document.querySelector(".card1");
-var allInfoCard = document.querySelectorAll('.allInfoCard')
 var welcomeUser = document.querySelector(".card-banner");
 var widgetBox = document.querySelector(".card2");
-
 
 var isAllUserInfoDisplayed = false;
 
 // Functions
-export default function displayUserInfo(user) {
+export default function displayUserInfo(user, userData) {
   welcomeUser.innerText = `Welcome, ${user.name.split(" ")[0]}`;
-  checkIfDisplayed(user);
+  checkIfDisplayed(user, userData);
 }
 
-function checkIfDisplayed(user) {
+function checkIfDisplayed(user, userData) {
   if (isAllUserInfoDisplayed) {
+    const friends = findFriends(user, userData);
+    const friendsNames = friends.map((friend) => friend.name).join(", ");
 
     userCard.innerHTML = `
       <section class='allInfoCard'>
@@ -31,15 +32,15 @@ function checkIfDisplayed(user) {
       <h3>Full name: ${user.name}</h3>
       <h3>Email: ${user.email}</h3>
       <h3>Address: ${user.address}</h3>
-      <h3>Friends: goes here, Seong.</h3>
+      <h3>Friends: ${friendsNames}</h3>
       <h3>Daily Step Goal: ${user.dailyStepGoal}</h3>
       <h3>Stride Length: ${user.strideLength}</h3>
       </section>
       <button class='moreInfoBttn'>Hide</button>
     `;
-    userCard.classList.add('allInfoCard');
+    userCard.classList.add("allInfoCard");
   } else {
-    userCard.classList.remove('allInfoCard');
+    userCard.classList.remove("allInfoCard");
     userCard.innerHTML = `
       <section class='user-card'> 
         <h3>${user.name.split(" ")[0]}'s daily step goal is ${user.dailyStepGoal} steps</h3>
@@ -47,15 +48,14 @@ function checkIfDisplayed(user) {
       </section>
       <button class='moreInfoBttn'>More User Info</button>
     `;
-    
   }
-  var infoBttn = document.querySelector('.moreInfoBttn');
-  infoBttn.addEventListener('click', toggleUserInfo);
+  var infoBttn = document.querySelector(".moreInfoBttn");
+  infoBttn.addEventListener("click", () => toggleUserInfo(user, userData));
 }
 
-function toggleUserInfo() {
+function toggleUserInfo(user, userData) {
   isAllUserInfoDisplayed = !isAllUserInfoDisplayed;
-  checkIfDisplayed(getLoggedInUser());
+  checkIfDisplayed(user, userData);
 }
 
 export function displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate) {
@@ -83,7 +83,6 @@ export function displaySleepData(
   <h3>Last night's sleep quality: ${sleepQualityByDay} out of 5 </h3>
   <h3>Hours slept this week: ${hoursSleptThisWeek.map((day) => Math.round(day.hoursSlept)).join(", ")} </h3>
   <h3>Sleep quality over 7 days: ${sleepQualityByWeek.map((day) => day.sleepQuality)}</h3>
+
 </div>`;
 }
-
-setLoggedInUser();
