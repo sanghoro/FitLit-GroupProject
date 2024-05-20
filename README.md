@@ -15,6 +15,7 @@ You can run tests by typing in 'npm test'
 You can close the server by 'ctrl + c'
 
 ## Preview
+![Screenshot 2024-05-20 at 5 09 32 PM](https://github.com/sanghoro/FitLit-GroupProject/assets/159068651/80675ef1-a99d-458a-986c-f71856522058)
 
 ## Pre-Planning
 Used Github Project for pre-planning [here](https://github.com/users/sanghoro/projects/8/views/1)
