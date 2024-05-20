@@ -30,7 +30,7 @@ function checkIfDisplayed(user) {
       <h3>User id: #${user.id}</h3> 
       <h3>Full name: ${user.name}</h3>
       <h3>Email: ${user.email}</h3>
-      <h3>Adress: ${user.address}</h3>
+      <h3>Address: ${user.address}</h3>
       <h3>Friends: goes here, Seong.</h3>
       <h3>Daily Step Goal: ${user.dailyStepGoal}</h3>
       <h3>Stride Length: ${user.strideLength}</h3>
@@ -42,9 +42,8 @@ function checkIfDisplayed(user) {
     userCard.classList.remove('allInfoCard');
     userCard.innerHTML = `
       <section class='user-card'> 
-        <h3>User id: #${user.id}</h3>
         <h3>${user.name.split(" ")[0]}'s daily step goal is ${user.dailyStepGoal} steps</h3>
-        <h3>The average step goal is ${userSteps}</h3>
+        <h3>The average user step goal is ${userSteps}</h3>
       </section>
       <button class='moreInfoBttn'>More User Info</button>
     `;
