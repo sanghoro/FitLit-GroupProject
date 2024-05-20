@@ -1,5 +1,3 @@
-// Your fetch requests will live here
-
 export function fetchUserData() {
   return fetch("https://fitlit-api.herokuapp.com/api/v1/users")
     .then((response) => {

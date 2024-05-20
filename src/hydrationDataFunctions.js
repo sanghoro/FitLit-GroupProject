@@ -1,7 +1,5 @@
-// global variables
 let newHydroData = [];
 
-// functions
 function getHydrationData(user, hydroArray) {
   const userHydroData = hydroArray.filter((userP) => userP.userID === user.id);
   const totalOunces = userHydroData.reduce(

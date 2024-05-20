@@ -10,7 +10,6 @@ import {
   weekOfHydroData,
 } from "../src/hydrationDataFunctions.js";
 
-// Mock Data
 const usersArray = [
   { id: 1, name: "Trystan Gorczany", dailyStepGoal: 10000 },
   { id: 2, name: "Jane Doe", dailyStepGoal: 8000 },
@@ -25,7 +24,6 @@ const hydrationData = [
   { userID: 5, date: "2023/03/24", numOunces: 47 },
 ];
 
-// userDataFunctions-testing
 describe("User Repository", () => {
   it("should run tests", function () {
     expect(true).to.equal(true);
@@ -46,7 +44,6 @@ describe("Get average steps", () => {
   });
 });
 
-// hydrationDataFunctions-testing
 describe("getHydrationData", function () {
   it("should return the hydration data for user", function () {
     const user = { id: 1 };

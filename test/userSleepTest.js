@@ -1,7 +1,6 @@
 import { expect } from "chai";
 import { getAverageSleepHours, getAverageSleepQuality, specificSleepHoursByDay, specificSleepQualityByDay } from "../src/sleepDataFunctions.js";
 
-// Mock Data
 const usersArray = [
   { id: 1, name: "Trystan Gorczany", dailyStepGoal: 10000 },
   { id: 2, name: "Jane Doe", dailyStepGoal: 8000 },
