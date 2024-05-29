@@ -2,25 +2,21 @@
 import "./css/styles.css";
 import displayUserInfo, { displayHydroData, displaySleepData } from "./domUpdates.js";
 import { fetchUserData, fetchHydrationData, fetchSleepData, fetchActivityData } from "./apiCalls.js";
-import { setLoggedInUser, getLoggedInUser, getRandomIndex, getUserDataById, avgSteps, setUserData} from "./userDataFunctions.js";
+import { setLoggedInUser, getLoggedInUser, getRandomIndex, getUserDataById, avgSteps, setUserData } from "./userDataFunctions.js";
 
-import {specificOuncesByDay,getHydrationData,weekOfHydroData,setHydroData} from "./hydrationDataFunctions.js";
-import { getAverageSleepHours, getAverageSleepQuality, setSleepData, sleepHoursForWeek, sleepQualityForWeek, specificSleepHoursByDay,  specificSleepQualityByDay} from "./sleepDataFunctions.js";
+import { specificOuncesByDay, getHydrationData, weekOfHydroData, setHydroData } from "./hydrationDataFunctions.js";
+import { getAverageSleepHours, getAverageSleepQuality, setSleepData, sleepHoursForWeek, sleepQualityForWeek, specificSleepHoursByDay, specificSleepQualityByDay } from "./sleepDataFunctions.js";
 
 // Global variables
 let userData = [];
 let hydroData = [];
 let sleepData = [];
-let activityData = [];
 let userSteps = 0;
 
 function fetchAllData() {
-  return fetchUserData()
-    .then((userDataResult) => {
+  Promise.all([fetchUserData(), fetchHydrationData(), fetchSleepData()])
+    .then(([userDataResult, hydrationDataResult, sleepDataResult]) => {
       initializeUserData(userDataResult);
-      return fetchHydrationData();
-    })
-    .then((hydrationDataResult) => {
       const hydrationData = initializeHydrationData(hydrationDataResult);
       console.log(hydrationData);
       const loggedInUser = getLoggedInUser();
@@ -31,9 +27,7 @@ function fetchAllData() {
       const usersOunces = hydrationData.usersOunces;
       const weekOfHydro = hydrationData.weekOfHydro;
       displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate);
-      return fetchSleepData();
-    })
-    .then((sleepDataResult) => {
+
       console.log("Fetched Sleep Data:", sleepDataResult);
       const fetchedSleepData = initializeSleepData(sleepDataResult);
       console.log("Sleep data initialized:", fetchedSleepData);
@@ -71,6 +65,7 @@ function initializeUserData(data) {
 }
 
 function initializeHydrationData(data) {
+  console.log("Initializing Hydration Data with:", data);
   hydroData = data;
   setHydroData(data);
   const loggedInUser = getLoggedInUser();
