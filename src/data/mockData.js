@@ -28,8 +28,11 @@ export const usersArray = [
     { userID: 3, date: "2023/03/24", hoursSlept: 8.0, sleepQuality: 4.0 },
   ];
 
-//   export {
-//     usersArray,
-//     sleepData,
-//     weekOfSleep
-// }
+  export const hydrationData = [
+    { userID: 1, date: "2023/03/24", numOunces: 28 },
+    { userID: 2, date: "2023/03/24", numOunces: 35 },
+    { userID: 3, date: "2023/03/24", numOunces: 95 },
+    { userID: 4, date: "2023/03/24", numOunces: 74 },
+    { userID: 5, date: "2023/03/24", numOunces: 47 },
+  ];
+  
