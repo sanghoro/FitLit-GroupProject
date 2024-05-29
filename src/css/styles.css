@@ -121,5 +121,13 @@ h3:hover {
   align-items: center;
 }
 
+.sleep-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
+}
 
 

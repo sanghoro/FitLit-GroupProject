@@ -1,7 +1,7 @@
 // imports
 import "./css/styles.css";
 import displayUserInfo, { displayHydroData, displaySleepData } from "./domUpdates.js";
-import { fetchUserData, fetchHydrationData, fetchSleepData, fetchActivityData } from "./apiCalls.js";
+import { fetchUserData, fetchHydrationData, fetchSleepData, fetchActivityData, submitSleepData } from "./apiCalls.js";
 import { setLoggedInUser, getLoggedInUser, getRandomIndex, getUserDataById, avgSteps, setUserData } from "./userDataFunctions.js";
 
 import { specificOuncesByDay, getHydrationData, weekOfHydroData, setHydroData } from "./hydrationDataFunctions.js";
@@ -12,6 +12,15 @@ let userData = [];
 let hydroData = [];
 let sleepData = [];
 let userSteps = 0;
+
+var addSleepBttn = document.querySelector('.add-sleep-data')
+var sleepForm = document.querySelector('.sleep-form')
+var submitBttn = document.querySelector('.submit-button')
+addSleepBttn.addEventListener('click', ()=> {
+  sleepForm.classList.remove('hidden')
+  addSleepBttn.classList.add('hidden')
+})
+submitBttn.addEventListener('click', submitSleepData)
 
 function fetchAllData() {
   Promise.all([fetchUserData(), fetchHydrationData(), fetchSleepData()])
