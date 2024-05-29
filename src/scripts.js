@@ -1,40 +1,11 @@
 // imports
 import "./css/styles.css";
-import displayUserInfo, {
-  displayHydroData,
-  displaySleepData,
-} from "./domUpdates.js";
-import {
-  fetchUserData,
-  fetchHydrationData,
-  fetchSleepData,
-  fetchActivityData,
-} from "./apiCalls.js";
+import displayUserInfo, { displayHydroData, displaySleepData } from "./domUpdates.js";
+import { fetchUserData, fetchHydrationData, fetchSleepData, fetchActivityData } from "./apiCalls.js";
+import { setLoggedInUser, getLoggedInUser, getRandomIndex, getUserDataById, avgSteps, setUserData} from "./userDataFunctions.js";
 
-import {
-  setLoggedInUser,
-  getLoggedInUser,
-  getRandomIndex,
-  getUserDataById,
-  avgSteps,
-  setUserData,
-} from "./userDataFunctions.js";
-
-import {
-  specificOuncesByDay,
-  getHydrationData,
-  weekOfHydroData,
-  setHydroData,
-} from "./hydrationDataFunctions.js";
-import {
-  getAverageSleepHours,
-  getAverageSleepQuality,
-  setSleepData,
-  sleepHoursForWeek,
-  sleepQualityForWeek,
-  specificSleepHoursByDay,
-  specificSleepQualityByDay,
-} from "./sleepDataFunctions.js";
+import {specificOuncesByDay,getHydrationData,weekOfHydroData,setHydroData} from "./hydrationDataFunctions.js";
+import { getAverageSleepHours, getAverageSleepQuality, setSleepData, sleepHoursForWeek, sleepQualityForWeek, specificSleepHoursByDay,  specificSleepQualityByDay} from "./sleepDataFunctions.js";
 
 // Global variables
 let userData = [];
