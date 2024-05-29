@@ -32,8 +32,6 @@ const usersArray = [
  
     describe("sleepHoursForWeek", () => {
       it("should return the hours slept each day over the course of a given week for a user", () => {
-        const user = usersArray[0];
-        const startDate = "2023/03/20";
         const result = sleepHoursForWeek(user, sleepData, startDate);
         expect(result).to.deep.equal([
           { date: "2023/03/20", hoursSlept: 9.6 },
@@ -47,23 +45,17 @@ const usersArray = [
       });
   
       it("should return an empty array if the sleep data array is empty", () => {
-        const user = usersArray[0];
-        const startDate = "2023/03/20";
         const result = sleepHoursForWeek(user, [], startDate);
         expect(result).to.deep.equal([]);
       });
   
       it("should return an empty array if the user exists but has no sleep data entries for the specified week", () => {
-        const user = usersArray[0];
-        const startDate = "2023/02/01";
-        const result = sleepHoursForWeek(user, sleepData, startDate);
+        const result = sleepHoursForWeek(user, sleepData, "2023/02/01");
         expect(result).to.deep.equal([]);
       });
 
       describe("sleepQualityForWeek", () => {
         it("should return the sleep quality each day over the course of a given week for a user", () => {
-          const user = usersArray[0];
-          const startDate = "2023/03/20";
           const result = sleepQualityForWeek(user, sleepData, startDate);
           expect(result).to.deep.equal([
             { date: "2023/03/20", sleepQuality: 4.3 },
@@ -77,8 +69,6 @@ const usersArray = [
         });
 
         it("should return an array with zeros if the sleep data array is empty", () => {
-          const user = usersArray[0];
-          const startDate = "2023/03/20";
           const result = sleepQualityForWeek(user, [], startDate);
           expect(result).to.deep.equal([
             { date: "2023/03/20", sleepQuality: 0 },
@@ -92,9 +82,8 @@ const usersArray = [
         });
     
         it("should return an array with zeros if the user exists but has no sleep data entries for the specified week", () => {
-          const user = usersArray[0];
           const startDate = "2023/02/01";
-          const result = sleepQualityForWeek(user, sleepData, startDate);
+          const result = sleepQualityForWeek(user, sleepData, '2023/02/01');
           expect(result).to.deep.equal([
             { date: "2023/02/01", sleepQuality: 0 },
             { date: "2023/02/02", sleepQuality: 0 },
