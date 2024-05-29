@@ -20,6 +20,15 @@ const usersArray = [
     { userID: 2, date: "2023/03/25", hoursSlept: 7.0, sleepQuality: 3.0 },
     { userID: 3, date: "2023/03/24", hoursSlept: 8.0, sleepQuality: 4.0 },
   ];
+
+  describe("sleepDataFunctions", () => {
+    let user;
+    let startDate;
+    
+    beforeEach(() => {
+        user = usersArray[0];
+        startDate = "2023/03/20";
+    });
  
     describe("sleepHoursForWeek", () => {
       it("should return the hours slept each day over the course of a given week for a user", () => {
@@ -98,3 +107,4 @@ const usersArray = [
         });
       });
     });
+  });
