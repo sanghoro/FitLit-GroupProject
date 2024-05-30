@@ -25,6 +25,10 @@ export function fetchSleepData() {
   return fetchData('sleep').then(data => data.sleepData)
 }
 
+export function fetchActivityData() {
+  return fetchData('activity').then(data => data.activityData)
+}
+
 //POST
 export function addSleepData(newSleepObj) {
  return fetch('http://localhost:3001/api/v1/sleep',{

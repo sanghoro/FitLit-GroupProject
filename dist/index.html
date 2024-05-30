@@ -1,50 +1,57 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap"
-      rel="stylesheet"
-    />
-    <title>Fitlit</title>
-  </head>
-  <body>
-    <section class="user-dash">
-      <div class="card-banner"></div>
-      <div class="card card1">
-        <div class="user-card"></div>
-      </div>
-      <button class="add-sleep-data">Add Sleep</button>
-        <div>
-          <form class="sleep-form hidden">
-          <label for="user-id">Id</label>
-          <input type="number" name="user-input-id">
-          <label for="date">Date:</label>
-          <input type="text" name="date-id">
-          <label for="hours-slept">Hours Slept:</label>
-          <input type="number" name='hr-slept-id'>
-          <label for="sleep-quality">Sleep Quality:</label>
-          <input type="text" name="sleep-qlty-id">
-          <button type="submit" class="submit-button">Submit </button>
-        </form>
-        <div class="returned-data"></div>
-        </div> 
-        
-    </section>
-      <div class="card card2">
-        <div id="hydration-widget"></div>
-      
 
-    
-        
-      </div>
-      <article class="card card3"><div id="sleep-widget"></div></article>     
-      
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap"
+    rel="stylesheet" />
+  <title>Fitlit</title>
+</head>
 
-    <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="bundle.js"></script>
-  </body>
+<body>
+  <section class="user-dash">
+    <div class="card-banner"></div>
+    <div class="card card1">
+      <div class="user-card"></div>
+    </div>
+    <button class="add-sleep-data">Add Sleep</button>
+    <div>
+      <form class="sleep-form hidden">
+        <label for="user-id">Id</label>
+        <input type="number" name="user-input-id">
+        <label for="date">Date:</label>
+        <input type="text" name="date-id">
+        <label for="hours-slept">Hours Slept:</label>
+        <input type="number" name='hr-slept-id'>
+        <label for="sleep-quality">Sleep Quality:</label>
+        <input type="text" name="sleep-qlty-id">
+        <button type="submit" class="submit-button">Submit </button>
+      </form>
+      <div class="returned-data"></div>
+    </div>
+
+  </section>
+  <div class="card card2">
+    <div id="hydration-widget"></div>
+
+
+
+
+  </div>
+  <article class="card card3">
+    <div id="sleep-widget"></div>
+  </article>
+
+  <div class="card card4">
+    <div id="activity-widget"></div>
+  </div>
+  </section>
+
+  <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="bundle.js"></script>
+</body>
+
 </html>

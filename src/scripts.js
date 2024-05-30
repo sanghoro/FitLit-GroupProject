@@ -1,6 +1,6 @@
 // imports
 import "./css/styles.css";
-import displayUserInfo, { displayHydroData, displaySleepData } from "./domUpdates.js";
+import displayUserInfo, { displayHydroData, displaySleepData, displayActivityData } from "./domUpdates.js";
 import { fetchUserData, fetchHydrationData, fetchSleepData, fetchActivityData, submitSleepData } from "./apiCalls.js";
 import { setLoggedInUser, getLoggedInUser, getRandomIndex, getUserDataById, avgSteps, setUserData } from "./userDataFunctions.js";
 
@@ -11,6 +11,7 @@ import { getAverageSleepHours, getAverageSleepQuality, setSleepData, sleepHoursF
 let userData = [];
 let hydroData = [];
 let sleepData = [];
+let activityData = [];
 let userSteps = 0;
 
 var addSleepBttn = document.querySelector('.add-sleep-data')
@@ -23,39 +24,31 @@ addSleepBttn.addEventListener('click', ()=> {
 sleepForm.addEventListener('submit', submitSleepData)
 
 function fetchAllData() {
-  Promise.all([fetchUserData(), fetchHydrationData(), fetchSleepData()])
-    .then(([userDataResult, hydrationDataResult, sleepDataResult]) => {
+  Promise.all([fetchUserData(), fetchHydrationData(), fetchSleepData(), fetchActivityData()])
+    .then(([userDataResult, hydrationDataResult, sleepDataResult, activityDataResult]) => {
+
       initializeUserData(userDataResult);
+
       const hydrationData = initializeHydrationData(hydrationDataResult);
-      // console.log(hydrationData);
+      const sleepData = initializeSleepData(sleepDataResult);
+      activityData = activityDataResult;
+
       const loggedInUser = getLoggedInUser();
       displayUserInfo(loggedInUser, userData);
 
       const date = "2023/07/01";
-      const ouncesByDate = hydrationData.ouncesByDate;
-      const usersOunces = hydrationData.usersOunces;
-      const weekOfHydro = hydrationData.weekOfHydro;
-      displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate);
-
-      // console.log("Fetched Sleep Data:", sleepDataResult);
-      const fetchedSleepData = initializeSleepData(sleepDataResult);
-      // console.log("Sleep data initialized:", fetchedSleepData);
-
-      const avgSleepHours = fetchedSleepData.avgSleepHours;
-      const avgSleepQuality = fetchedSleepData.avgSleepQuality;
-      const sleepHoursByDay = fetchedSleepData.sleepHoursByDay;
-      const hoursSleptThisWeek = fetchedSleepData.hoursSleptThisWeek;
-      const sleepQualityByDay = fetchedSleepData.sleepQualityByDay;
-      const sleepQualityByWeek = fetchedSleepData.sleepQualityByWeek;
-
+      displayHydroData(date, hydrationData.weekOfHydro, hydrationData.usersOunces, hydrationData.ouncesByDate);
       displaySleepData(
-        avgSleepHours,
-        avgSleepQuality,
-        sleepHoursByDay,
-        sleepQualityByDay,
-        hoursSleptThisWeek,
-        sleepQualityByWeek
+        sleepData.avgSleepHours,
+        sleepData.avgSleepQuality,
+        sleepData.sleepHoursByDay,
+        sleepData.sleepQualityByDay,
+        sleepData.hoursSleptThisWeek,
+        sleepData.sleepQualityByWeek
       );
+
+      const recentActivityData = getRecentActivityData(activityData, loggedInUser.id);
+      displayActivityData(recentActivityData);
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
@@ -121,6 +114,11 @@ function initializeSleepData(data) {
     hoursSleptThisWeek,
     sleepQualityByWeek,
   };
+}
+function getRecentActivityData(activityData, userId) {
+  const userActivity = activityData.filter(activity => activity.userID === userId);
+  const sortedActivity = userActivity.sort((a, b) => new Date(b.date) - new Date(a.date));
+  return sortedActivity.slice(0, 7);
 }
 
 fetchAllData();

@@ -138,67 +138,22 @@ export function displaySleepData(
   });
 }
 
+export function displayActivityData(activityData) {
+  const activityWidget = document.getElementById('activity-widget');
 
-// export function displaySleepData(
-//   avgSleepHours,
-//   avgSleepQuality,
-//   sleepHoursByDay,
-//   sleepQualityByDay,
-//   hoursSleptThisWeek,
-//   sleepQualityByWeek
-// ) {
-//   widgetBox.innerHTML += `
-//   <div class='widget widget2'>
-//     <h2>Sleep Stats</h2>
-//     <div>
-//       <h3>You've slept <span>${Math.round(sleepHoursByDay)}</span> hours last night</h3>
-//       <h3>Last night's <span>sleep quality</span> was <span>${sleepQualityByDay}</span>/5</h3>
-//       <h3><span>Average</span> Hours of sleep per week ${Math.round(avgSleepHours)} </h3>
-//       <h3><span>Average</span> sleep quality: <span>${avgSleepQuality.toFixed(2)}</span> </h3>
-//       <canvas id='sleepQualityChart'></canvas>
-//     </div>
-//     <canvas id='sleepChart'></canvas>
-//   </div>`;
+  const totalSteps = activityData.reduce((total, activity) => {
+    return total + activity.numSteps
+  }, 0)
 
-//   const sleepHoursCtx = document.getElementById('sleepChart').getContext('2d');
-//   new Chart(sleepHoursCtx, {
-//     type: 'bar',
-//     data: {
-//       labels: hoursSleptThisWeek.map(day => day.date),
-//       datasets: [{
-//         label: 'Hours Slept',
-//         data: hoursSleptThisWeek.map(day => day.hoursSlept),
-//         backgroundColor: 'green',
-//         fill: false
-//       }]
-//     },
-//     options: {
-//       responsive: true,
-//       scales: {
-//         x: { title: { display: true, text: 'Date' } },
-//         y: { title: { display: true, text: 'Hours' } }
-//       }
-//     }
-//   });
-  // const sleepQualityCtx = document.getElementById('sleepQualityChart').getContext('2d');
-  // new Chart(sleepQualityCtx, {
-  //   type: 'line',
-  //   data: {
-  //     labels: sleepQualityByWeek.map(day => day.date),
-  //     datasets: [{
-  //       label: 'Sleep Quality',
-  //       data: sleepQualityByWeek.map(day => day.sleepQuality),
-  //       borderColor: 'blue',
-  //       fill: false
-  //     }]
-  //   },
-  //   options: {
-  //     responsive: true,
-  //     scales: {
-  //       x: { title: { display: true, text: 'Date' } },
-  //       y: { title: { display: true, text: 'Quality' } }
-  //     }
-  //   }
-  // })
-// }
+  const startDate = activityData[activityData.length - 1].date;
+  const endDate = activityData[0].date;
+
+  activityWidget.innerHTML = `
+    <div class="widget">
+      <h2>Step Challenge</h2>
+      <p>Your Total Steps: ${totalSteps}</p>
+      <p>Date Range: ${startDate} - ${endDate}</p>
+    </div>
+  `;
+}
 
