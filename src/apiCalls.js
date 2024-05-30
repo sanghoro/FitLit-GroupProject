@@ -25,26 +25,49 @@ export function fetchSleepData() {
   return fetchData('sleep').then(data => data.sleepData)
 }
 
-export function postSleepData(newSleepObj) {
-  fetch('http://localhost:3001/api/v1/sleep',{
+//POST
+export function addSleepData(newSleepObj) {
+ return fetch('http://localhost:3001/api/v1/sleep',{
     method:'POST',
-    body: JSON.stringify(newSleepObj), // remember how HTTP can only send and receive strings, just like localStorage?
+    body: JSON.stringify(newSleepObj),
     headers: {
      'Content-Type': 'application/json'
     }
   })
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(data => displayAddedSleepData(data))
 }
+
+const displayAddedSleepData = sleepData => {
+  var newSleepDisplay = document.querySelector('.returned-data')
+  newSleepDisplay.innerHTML = `
+  <p>Id: ${sleepData.userID}<p>
+  <p>Date:${sleepData.date}<p>
+  <p>Hours Slept${sleepData.hoursSlept}<p>
+  <p>SleepQuality:${sleepData.sleepQuality}<p>
+  `
+};
+
 
 export function submitSleepData(e) {
   e.preventDefault();
-  const formData = new FormData(e.target);
+  const formElement = e.target
+  const formData = new FormData(formElement);
   const sleepLog = {
-    userID: parseInt(formData.get('#user-input-id')),
-    date: formData.get('#date-id'),
-    hoursSlept: parseInt(formData.get('#hr-slept-id')),
-    sleepQuality: parseInt(formData.get('#sleep-qlty-id'))
-};
-postSleepData(sleepLog)
+    userID: parseInt(formData.get('user-input-id')),
+    date: formData.get('date-id'),
+    hoursSlept: parseInt(formData.get('hr-slept-id')),
+    sleepQuality: parseInt(formData.get('sleep-qlty-id'))
+  };
+  console.log('Sleep Log Data:', sleepLog);
+  addSleepData(sleepLog).then(() => {
+    console.log('Data should now be updated.');
+    return fetchSleepData();  // Fetch the updated sleep data
+  })
+  .then(updatedSleepData => {
+    console.log('Updated Sleep Data:', updatedSleepData);  // Log the updated sleep data
+  })
+  .catch(error => {
+    console.error('Error fetching updated sleep data:', error);
+  });
 }

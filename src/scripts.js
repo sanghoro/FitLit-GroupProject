@@ -15,19 +15,19 @@ let userSteps = 0;
 
 var addSleepBttn = document.querySelector('.add-sleep-data')
 var sleepForm = document.querySelector('.sleep-form')
-var submitBttn = document.querySelector('.submit-button')
+// var submitBttn = document.querySelector('.submit-button')
 addSleepBttn.addEventListener('click', ()=> {
   sleepForm.classList.remove('hidden')
   addSleepBttn.classList.add('hidden')
 })
-submitBttn.addEventListener('click', submitSleepData)
+sleepForm.addEventListener('submit', submitSleepData)
 
 function fetchAllData() {
   Promise.all([fetchUserData(), fetchHydrationData(), fetchSleepData()])
     .then(([userDataResult, hydrationDataResult, sleepDataResult]) => {
       initializeUserData(userDataResult);
       const hydrationData = initializeHydrationData(hydrationDataResult);
-      console.log(hydrationData);
+      // console.log(hydrationData);
       const loggedInUser = getLoggedInUser();
       displayUserInfo(loggedInUser, userData);
 
@@ -37,9 +37,9 @@ function fetchAllData() {
       const weekOfHydro = hydrationData.weekOfHydro;
       displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate);
 
-      console.log("Fetched Sleep Data:", sleepDataResult);
+      // console.log("Fetched Sleep Data:", sleepDataResult);
       const fetchedSleepData = initializeSleepData(sleepDataResult);
-      console.log("Sleep data initialized:", fetchedSleepData);
+      // console.log("Sleep data initialized:", fetchedSleepData);
 
       const avgSleepHours = fetchedSleepData.avgSleepHours;
       const avgSleepQuality = fetchedSleepData.avgSleepQuality;
@@ -47,7 +47,6 @@ function fetchAllData() {
       const hoursSleptThisWeek = fetchedSleepData.hoursSleptThisWeek;
       const sleepQualityByDay = fetchedSleepData.sleepQualityByDay;
       const sleepQualityByWeek = fetchedSleepData.sleepQualityByWeek;
-      console.log(sleepQualityByWeek);
 
       displaySleepData(
         avgSleepHours,
@@ -74,7 +73,7 @@ function initializeUserData(data) {
 }
 
 function initializeHydrationData(data) {
-  console.log("Initializing Hydration Data with:", data);
+  // console.log("Initializing Hydration Data with:", data);
   hydroData = data;
   setHydroData(data);
   const loggedInUser = getLoggedInUser();

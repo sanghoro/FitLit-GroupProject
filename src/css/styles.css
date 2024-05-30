@@ -24,9 +24,7 @@ h3:hover {
   background: rgba(245, 243, 243, 0.1); 
   border-radius: 2rem;
   backdrop-filter: blur(4px);
-  display: grid;
-  grid-template-rows: repeat(12, 1fr);
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   box-shadow: rgba(198, 6, 205, 1) 0px 5px 10px;
   padding: 2rem;
   border-color:#7f0283;
@@ -46,7 +44,7 @@ h3:hover {
 .card {
   margin: 2rem;
   padding: 2rem;
-  background: rgba(239, 90, 227, 0.1); 
+  background: rgba(113, 85, 110, 0.51); 
   border-radius: 2rem;
   display: flex;
   justify-content: center;
@@ -124,6 +122,10 @@ h3:hover {
 .sleep-form {
   display: flex;
   flex-direction: column;
+}
+
+.add-sleep-data {
+  height: 4rem;
 }
 
 .hidden {
