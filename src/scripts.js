@@ -49,6 +49,8 @@ function fetchAllData() {
 
       const recentActivityData = getRecentActivityData(activityData, loggedInUser.id);
       displayActivityData(recentActivityData);
+      //INVOKE NEW FUNCTION TO LOG ACTIVITY DATA PASSING IN OUR LOGGEDINUSER.FRIENDS
+      logFriendsActivityData(loggedInUser.friends);
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
@@ -119,6 +121,14 @@ function getRecentActivityData(activityData, userId) {
   const userActivity = activityData.filter(activity => activity.userID === userId);
   const sortedActivity = userActivity.sort((a, b) => new Date(b.date) - new Date(a.date));
   return sortedActivity.slice(0, 7);
+}
+
+//FUNCTION TO LOG ACTIVITY DATA OF THE USER.FRIENDS
+function logFriendsActivityData(friendIds) {
+  friendIds.forEach(friendId => {
+    const friendActivityData = activityData.filter(activity => activity.userID === friendId);
+    console.log(`Activity data for friend ID ${friendId}:`, friendActivityData);
+  });
 }
 
 fetchAllData();
