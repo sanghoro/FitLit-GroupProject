@@ -49,9 +49,18 @@ function fetchAllData() {
 
       const recentActivityData = getRecentActivityData(activityData, loggedInUser.id);
       displayActivityData(recentActivityData);
+
       //INVOKE NEW FUNCTION TO LOG ACTIVITY DATA PASSING IN OUR LOGGEDINUSER.FRIENDS
       logFriendsActivityData(loggedInUser.friends);
+      //INVOKING THE COMPARE STEPS FUNCTION TO RETURN THE USER AND LOGGED USER FRIENDS STEPS
+      //BY PASSING IN THE LOGGED IN USER AND USER.FRIENDS AS ARGUMENTS
+      const stepComparison = compareSteps(loggedInUser, loggedInUser.friends);
+      logFriendsSteps(stepComparison);
+      //INVOKE THE FUNCTION TO GET USER WITH MAX STEPS AND THEN CONSOLE LOG IT
+      const userWithMaxSteps = findUserWithMaxSteps(stepComparison);
+      console.log(`User with the most steps: ${userWithMaxSteps.name} (ID: ${userWithMaxSteps.userId}) with ${userWithMaxSteps.steps} steps`);   
     })
+
     .catch((error) => {
       console.error("Error fetching data:", error);
       throw error;
@@ -123,11 +132,47 @@ function getRecentActivityData(activityData, userId) {
   return sortedActivity.slice(0, 7);
 }
 
-//FUNCTION TO LOG ACTIVITY DATA OF THE USER.FRIENDS
+//FUNCTION TO FIND AND LOG ACTIVITY DATA OF THE USER.FRIENDS
 function logFriendsActivityData(friendIds) {
   friendIds.forEach(friendId => {
     const friendActivityData = activityData.filter(activity => activity.userID === friendId);
     console.log(`Activity data for friend ID ${friendId}:`, friendActivityData);
+  });
+}
+
+// Combine the logged-in user's ID and friends' IDs into one array
+// Map over all user IDs to get the total steps for each user
+// Filter activity data to get activities only for the current user
+// Sum up the number of steps for the current user
+// Return an object containing the user ID, user name, and total steps
+function compareSteps(loggedInUser, friendIds) {
+  const allUserIds = [loggedInUser.id, ...friendIds];
+  return allUserIds.map(userId => {
+    const user = userData.find(user => user.id === userId);
+    const recentActivityData = getRecentActivityData(activityData, userId);
+    const totalSteps = recentActivityData.reduce((acc, activity) => acc + activity.numSteps, 0);
+    return { userId, name: user.name, steps: totalSteps };
+  });
+}
+
+// FUNCTION THAT FINDS THE USER WITH THE MOST STEPS
+//It compares the steps of the user that is being iterated over in the stepsOfUserAndFriends array
+//with the accumulator, if the user steps are greater, return the user, if the acc user has greater steps, return the acc.
+function findUserWithMaxSteps(stepsOfUserAndFriends) {
+  return stepsOfUserAndFriends.reduce((acc, user) => {
+    if (user.steps > acc.steps) {
+      return user;
+    } else {
+      return acc;
+    }
+  }, { userId: null, name: null, steps: 0 }); //This object is the initial value that will iterate over the array
+}
+
+
+// GENERIC CONSOLE LOG TO ENSURE THE FRIENDS STEP DATA RETREIVED FROM THE STEP COMPARISON FUNCTION IS ACCESSIBLE AND CORRECT
+function logFriendsSteps(stepsOfUserAndFriends) {
+  stepsOfUserAndFriends.forEach(user => {
+    console.log(`User ${user.name} (ID: ${user.userId}) has ${user.steps} steps`);
   });
 }
 
