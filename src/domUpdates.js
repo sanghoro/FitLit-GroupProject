@@ -16,9 +16,10 @@ var isAllUserInfoDisplayed = false;
 
 // Functions
 export default function displayUserInfo(user, userData) {
-  welcomeUser.innerHTML = `<h3> Welcome,<span> ${user.name.split(" ")[0]}!</span>`;
+  welcomeUser.innerHTML = `<h3 class='intro'> Welcome,<span> ${user.name.split(" ")[0]}!</span>`;
   checkIfDisplayed(user, userData);
 }
+
 
 function checkIfDisplayed(user, userData) {
   userCard.innerHTML = "";
