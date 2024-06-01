@@ -66,10 +66,10 @@ export function submitSleepData(e) {
   console.log('Sleep Log Data:', sleepLog);
   addSleepData(sleepLog).then(() => {
     console.log('Data should now be updated.');
-    return fetchSleepData();  // Fetch the updated sleep data
+    return fetchSleepData();  
   })
   .then(updatedSleepData => {
-    console.log('Updated Sleep Data:', updatedSleepData);  // Log the updated sleep data
+    console.log('Updated Sleep Data:', updatedSleepData);  
   })
   .catch(error => {
     console.error('Error fetching updated sleep data:', error);

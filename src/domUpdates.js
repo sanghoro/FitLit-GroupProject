@@ -150,7 +150,7 @@ export function displayActivityData(activityData, loggedInUser) {
   const friendsSteps = compareSteps(loggedInUser, loggedInUser.friends);
   const rankedSteps = friendsSteps.sort((a, b) => b.steps - a.steps);
 
-  const emotions = ["🏆", "🥈", "🥉", "😊"]; // Emotions for ranks 1 to 3 and default
+  const emotions = ["🏆", "🥈", "🥉", "😊"]; 
 
   const stepList = rankedSteps.map((friend, index) => `
       <div class="step-item">
