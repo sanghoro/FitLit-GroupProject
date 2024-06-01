@@ -3,8 +3,9 @@ import {
   userSteps,
   setLoggedInUser,
   getLoggedInUser,
-  findFriends,
+  findFriends
 } from "./userDataFunctions.js";
+import { compareSteps } from "./scripts.js";
 import { specificOuncesByDay } from "./hydrationDataFunctions.js";
 
 // Query selectors
@@ -12,6 +13,7 @@ var userCard = document.querySelector(".card1");
 var welcomeUser = document.querySelector(".card-banner");
 var hydrationWidget = document.getElementById('hydration-widget');
 var sleepWidget = document.getElementById('sleep-widget');
+var activityWidget = document.getElementById('activity-widget');
 var isAllUserInfoDisplayed = false;
 
 // Functions
@@ -19,7 +21,6 @@ export default function displayUserInfo(user, userData) {
   welcomeUser.innerHTML = `<h3 class='intro'> Welcome,<span> ${user.name.split(" ")[0]}!</span>`;
   checkIfDisplayed(user, userData);
 }
-
 
 function checkIfDisplayed(user, userData) {
   userCard.innerHTML = "";
@@ -139,22 +140,32 @@ export function displaySleepData(
   });
 }
 
-export function displayActivityData(activityData) {
+export function displayActivityData(activityData, loggedInUser) {
   const activityWidget = document.getElementById('activity-widget');
 
-  const totalSteps = activityData.reduce((total, activity) => {
-    return total + activity.numSteps
-  }, 0)
-
+  const totalSteps = activityData.reduce((total, activity) => total + activity.numSteps, 0);
   const startDate = activityData[activityData.length - 1].date;
   const endDate = activityData[0].date;
+
+  const friendsSteps = compareSteps(loggedInUser, loggedInUser.friends);
+  const rankedSteps = friendsSteps.sort((a, b) => b.steps - a.steps);
+
+  const emotions = ["🏆", "🥈", "🥉", "😊"]; // Emotions for ranks 1 to 3 and default
+
+  const stepList = rankedSteps.map((friend, index) => `
+      <div class="step-item">
+        <span class="rank">${index + 1} ${emotions[index] || "😊"}</span>
+        <span class="name">${friend.name}</span>
+        <span class="steps">${friend.steps} steps</span>
+      </div>`
+  ).join('');
 
   activityWidget.innerHTML = `
     <div class="widget">
       <h2>Step Challenge</h2>
       <p>Your Total Steps: ${totalSteps}</p>
       <p>Date Range: ${startDate} - ${endDate}</p>
+      <div class="step-list">${stepList}</div>
     </div>
   `;
 }
-

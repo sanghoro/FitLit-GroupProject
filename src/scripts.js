@@ -3,7 +3,6 @@ import "./css/styles.css";
 import displayUserInfo, { displayHydroData, displaySleepData, displayActivityData } from "./domUpdates.js";
 import { fetchUserData, fetchHydrationData, fetchSleepData, fetchActivityData, submitSleepData } from "./apiCalls.js";
 import { setLoggedInUser, getLoggedInUser, getRandomIndex, getUserDataById, avgSteps, setUserData } from "./userDataFunctions.js";
-
 import { specificOuncesByDay, getHydrationData, weekOfHydroData, setHydroData } from "./hydrationDataFunctions.js";
 import { getAverageSleepHours, getAverageSleepQuality, setSleepData, sleepHoursForWeek, sleepQualityForWeek, specificSleepHoursByDay, specificSleepQualityByDay } from "./sleepDataFunctions.js";
 
@@ -14,14 +13,13 @@ let sleepData = [];
 let activityData = [];
 let userSteps = 0;
 
-var addSleepBttn = document.querySelector('.add-sleep-data')
-var sleepForm = document.querySelector('.sleep-form')
-// var submitBttn = document.querySelector('.submit-button')
-addSleepBttn.addEventListener('click', ()=> {
-  sleepForm.classList.remove('hidden')
-  addSleepBttn.classList.add('hidden')
-})
-sleepForm.addEventListener('submit', submitSleepData)
+var addSleepBttn = document.querySelector('.add-sleep-data');
+var sleepForm = document.querySelector('.sleep-form');
+addSleepBttn.addEventListener('click', () => {
+  sleepForm.classList.remove('hidden');
+  addSleepBttn.classList.add('hidden');
+});
+sleepForm.addEventListener('submit', submitSleepData);
 
 function fetchAllData() {
   Promise.all([fetchUserData(), fetchHydrationData(), fetchSleepData(), fetchActivityData()])
@@ -48,7 +46,7 @@ function fetchAllData() {
       );
 
       const recentActivityData = getRecentActivityData(activityData, loggedInUser.id);
-      displayActivityData(recentActivityData);
+      displayActivityData(recentActivityData, loggedInUser);
 
       //INVOKE NEW FUNCTION TO LOG ACTIVITY DATA PASSING IN OUR LOGGEDINUSER.FRIENDS
       logFriendsActivityData(loggedInUser.friends);
@@ -60,7 +58,6 @@ function fetchAllData() {
       const userWithMaxSteps = findUserWithMaxSteps(stepComparison);
       console.log(`User with the most steps: ${userWithMaxSteps.name} (ID: ${userWithMaxSteps.userId}) with ${userWithMaxSteps.steps} steps`);   
     })
-
     .catch((error) => {
       console.error("Error fetching data:", error);
       throw error;
@@ -77,7 +74,6 @@ function initializeUserData(data) {
 }
 
 function initializeHydrationData(data) {
-  // console.log("Initializing Hydration Data with:", data);
   hydroData = data;
   setHydroData(data);
   const loggedInUser = getLoggedInUser();
@@ -168,7 +164,6 @@ function findUserWithMaxSteps(stepsOfUserAndFriends) {
   }, { userId: null, name: null, steps: 0 }); //This object is the initial value that will iterate over the array
 }
 
-
 // GENERIC CONSOLE LOG TO ENSURE THE FRIENDS STEP DATA RETREIVED FROM THE STEP COMPARISON FUNCTION IS ACCESSIBLE AND CORRECT
 function logFriendsSteps(stepsOfUserAndFriends) {
   stepsOfUserAndFriends.forEach(user => {
@@ -178,4 +173,4 @@ function logFriendsSteps(stepsOfUserAndFriends) {
 
 fetchAllData();
 
-export { getLoggedInUser };
+export { getLoggedInUser, compareSteps };
