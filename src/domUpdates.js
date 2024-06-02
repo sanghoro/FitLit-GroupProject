@@ -69,7 +69,6 @@ export function displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate) {
     <div>
       <h3>You drank <span>${ouncesByDate}oz</span> of water today.</h3>
       <h3><span>Average</span> ounces of water consumed: <span>${usersOunces}</span></h3>
-      <h3><span>Water consumption</span> last week: <span>${weekOfHydro.map((day) => day.numOunces).join(", ")}</span></h3>
       <canvas class='graph' id="hydroChart"></canvas>
     </div>
     </div>`;
@@ -84,7 +83,7 @@ export function displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate) {
         data: weekOfHydro.map(day => day.numOunces),
         borderColor: 'blue',
         fill: false
-      }]
+      }]          
     },
     options: {
       responsive: true,
@@ -94,16 +93,14 @@ export function displayHydroData(date, weekOfHydro, usersOunces, ouncesByDate) {
       }
     }
   });
+
+
+  
+ 
+
 }
 
-export function displaySleepData(
-  avgSleepHours,
-  avgSleepQuality,
-  sleepHoursByDay,
-  sleepQualityByDay,
-  hoursSleptThisWeek,
-  sleepQualityByWeek
-) {
+export function displaySleepData(avgSleepHours, avgSleepQuality, sleepHoursByDay, sleepQualityByDay, hoursSleptThisWeek, sleepQualityByWeek) {
   sleepWidget.innerHTML = `
   <div class='widget widget2'>
     <h2>Sleep Stats</h2>
@@ -112,13 +109,13 @@ export function displaySleepData(
       <h3>Last night's <span>sleep quality</span> was <span>${sleepQualityByDay}</span>/5</h3>
       <h3><span>Average</span> Hours of sleep per week ${Math.round(avgSleepHours)} </h3>
       <h3><span>Average</span> sleep quality: <span>${avgSleepQuality.toFixed(2)}</span> </h3>
-      <h3><span>Hours slept</span> this week: <span>${hoursSleptThisWeek.map((day) => Math.round(day.hoursSlept)).join(", ")}</span> </h3>
       <h3><span>Sleep quality</span> this Week: <span>${sleepQualityByWeek.map((day) => day.sleepQuality).join(", ")}</span></h3>
     </div>
-    <canvas id='sleepChart'></canvas>
+    <canvas id='sleepHoursChart'></canvas>
+    <canvas id='sleepQualityChart'></canvas>
   </div>`;
 
-  const ctx = document.getElementById('sleepChart').getContext('2d');
+  const ctx = document.getElementById('sleepHoursChart').getContext('2d');
   new Chart(ctx, {
     type: 'bar',
     data: {
@@ -138,6 +135,28 @@ export function displaySleepData(
       }
     }
   });
+
+  const ctxQuality = document.getElementById('sleepQualityChart').getContext('2d');
+  new Chart(ctxQuality, {
+    type: 'bar',
+    data: {
+      labels: sleepQualityByWeek.map(day => day.date),
+      datasets: [{
+        label: 'Sleep Quality',
+        data: sleepQualityByWeek.map(day => day.sleepQuality),
+        backgroundColor: 'blue',
+        fill: false
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: { title: { display: true, text: 'Date' } },
+        y: { title: { display: true, text: 'Quality (out of 5)' } }
+      }
+    }
+  });
+
 }
 
 export function displayActivityData(activityData, loggedInUser) {

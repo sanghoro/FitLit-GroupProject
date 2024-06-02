@@ -13,13 +13,18 @@ let sleepData = [];
 let activityData = [];
 let userSteps = 0;
 
-var addSleepBttn = document.querySelector('.add-sleep-data');
-var sleepForm = document.querySelector('.sleep-form');
-addSleepBttn.addEventListener('click', () => {
-  sleepForm.classList.remove('hidden');
-  addSleepBttn.classList.add('hidden');
+document.addEventListener('DOMContentLoaded', () => {
+  const addSleepBttn = document.querySelector('.add-sleep-data');
+  const sleepForm = document.querySelector('.sleep-form');
+
+  addSleepBttn.addEventListener('click', () => {
+    sleepForm.classList.remove('hidden');
+    addSleepBttn.classList.add('hidden');
+  });
+
+  sleepForm.addEventListener('submit', submitSleepData);
+  fetchAllData();
 });
-sleepForm.addEventListener('submit', submitSleepData);
 
 function fetchAllData() {
   Promise.all([fetchUserData(), fetchHydrationData(), fetchSleepData(), fetchActivityData()])

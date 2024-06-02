@@ -1,3 +1,6 @@
+import { getLoggedInUser } from "./userDataFunctions";
+
+
 export function fetchData(endpoint) {
   return fetch(`https://fitlit-api.herokuapp.com/api/v1/${endpoint}`)
     .then((response) => {
@@ -45,20 +48,61 @@ export function addSleepData(newSleepObj) {
 const displayAddedSleepData = sleepData => {
   var newSleepDisplay = document.querySelector('.returned-data')
   newSleepDisplay.innerHTML = `
-  <p>Id: ${sleepData.userID}<p>
-  <p>Date:${sleepData.date}<p>
-  <p>Hours Slept${sleepData.hoursSlept}<p>
-  <p>SleepQuality:${sleepData.sleepQuality}<p>
-  `
+    <p>Id: ${sleepData.userID}<p>
+    <p>Date:${sleepData.date}<p>
+    <canvas id="hoursSleptChart"></canvas>
+    <canvas id="sleepQualityChart"></canvas>
+  `;
+
+  // Create Hours Slept Chart
+  const ctxHours = document.getElementById('hoursSleptChart').getContext('2d');
+  new Chart(ctxHours, {
+    type: 'doughnut',
+    data: {
+      labels: ['Hours Slept'],
+      datasets: [{
+        data: [sleepData.hoursSlept, 24 - sleepData.hoursSlept], // Assuming 24 hours in a day
+        backgroundColor: ['#36a2eb', '#e0e0e0'],
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: `Hours Slept: ${sleepData.hoursSlept}`
+      },
+      cutout: '80%'
+    }
+  });
+
+  // Create Sleep Quality Chart
+  const ctxQuality = document.getElementById('sleepQualityChart').getContext('2d');
+  new Chart(ctxQuality, {
+    type: 'doughnut',
+    data: {
+      labels: ['Sleep Quality'],
+      datasets: [{
+        data: [sleepData.sleepQuality, 5 - sleepData.sleepQuality], // Assuming sleep quality is rated out of 5
+        backgroundColor: ['#ff6384', '#e0e0e0'],
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: `Sleep Quality: ${sleepData.sleepQuality}`
+      },
+      cutout: '80%'
+    }
+  });
 };
 
 
 export function submitSleepData(e) {
   e.preventDefault();
-  const formElement = e.target
+  const loggedInUser = getLoggedInUser();
+  const formElement = e.target;
   const formData = new FormData(formElement);
   const sleepLog = {
-    userID: parseInt(formData.get('user-input-id')),
+    userID: loggedInUser.id,
     date: formData.get('date-id'),
     hoursSlept: parseInt(formData.get('hr-slept-id')),
     sleepQuality: parseInt(formData.get('sleep-qlty-id'))
