@@ -17,6 +17,7 @@ function weekOfHydroData(user, hydroArray) {
   const userHydroData = hydroArray.filter((userP) => userP.userID === user.id);
   return userHydroData.slice(-7).reverse();
 }
+
 function setHydroData(data) {
   newHydroData = data;
 }
