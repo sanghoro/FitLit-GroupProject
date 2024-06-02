@@ -45,8 +45,11 @@ function checkIfDisplayed(user, userData) {
   } else {
     userCard.innerHTML = `
       <section class='user-card'> 
+        <h2>User Profile</h2>
+        <br>
         <div>
           <h3><span>${user.name.split(" ")[0]}'s</span> daily step goal is <span>${user.dailyStepGoal} </span>steps</h3>
+          <br>
           <h3>The <span>average</span> step goal is <span>${userSteps}</span></h3>
         </div>
         <button class='moreInfoBttn'>More User Info</button>
@@ -108,8 +111,7 @@ export function displaySleepData(avgSleepHours, avgSleepQuality, sleepHoursByDay
     <div>
       <h3>You've slept <span>${Math.round(sleepHoursByDay)}</span> hours last night</h3>
       <h3>Last night's <span>sleep quality</span> was <span>${sleepQualityByDay}</span>/5</h3>
-      <h3><span>Average</span> Hours of sleep per week was ${Math.round(avgSleepHours)} hours</h3>
-      <h3><span>Average</span> sleep quality: <span>${avgSleepQuality.toFixed(2)}/5</span> </h3>
+
     </div>
     <canvas id='sleepChart'></canvas>
     <canvas id='sleepQualityChart'></canvas>
