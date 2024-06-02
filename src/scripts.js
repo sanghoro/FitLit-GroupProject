@@ -111,12 +111,12 @@ function initializeSleepData(data) {
   const hoursSleptThisWeek = sleepHoursForWeek(
     loggedInUser,
     sleepData,
-    "2023/05/26"
+    "2023/06/25"
   );
   const sleepQualityByWeek = sleepQualityForWeek(
     loggedInUser,
     sleepData,
-    "2023/05/26"
+    "2023/06/25"
   );
   return {
     avgSleepHours,

@@ -96,8 +96,14 @@ const displayAddedSleepData = sleepData => {
 };
 
 
+
+
 export function submitSleepData(e) {
   e.preventDefault();
+  const addSleepBttn = document.querySelector('.add-sleep-data');
+  const sleepForm = document.querySelector('.sleep-form');
+  addSleepBttn.classList.remove('hidden')
+  sleepForm.classList.add('hidden')
   const loggedInUser = getLoggedInUser();
   const formElement = e.target;
   const formData = new FormData(formElement);
@@ -107,6 +113,17 @@ export function submitSleepData(e) {
     hoursSlept: parseInt(formData.get('hr-slept-id')),
     sleepQuality: parseInt(formData.get('sleep-qlty-id'))
   };
+
+  if (sleepLog.hoursSlept <= 0 || sleepLog.hoursSlept > 24) {
+    alert("Invalid number of hours slept. It should be between 1 and 24.");
+    return;
+  }
+
+  if (sleepLog.sleepQuality <= 0 || sleepLog.sleepQuality > 5) {
+    alert("Invalid sleep quality. It should be between 1 and 5.");
+    return;
+  }
+
   console.log('Sleep Log Data:', sleepLog);
   addSleepData(sleepLog).then(() => {
     console.log('Data should now be updated.');
