@@ -13,10 +13,13 @@ body {
 }
 
 
-h2, h3, span {
+h2,
+h3,
+span {
   color: #7f0283;
   margin: 0;
 }
+
 h3:hover {
   color: #f546e0;
 }
@@ -25,7 +28,7 @@ h3:hover {
 .user-dash {
   height: 90%;
   width: 90%;
-  background: rgba(245, 243, 243, 0.1); 
+  background: rgba(245, 243, 243, 0.1);
   border-radius: 2rem;
   backdrop-filter: blur(4px);
   display: grid;
@@ -33,7 +36,7 @@ h3:hover {
   grid-template-rows: repeat(9, 1fr);
   box-shadow: rgba(198, 6, 205, 1) 0px 5px 10px;
   padding: 2rem;
-  border-color:#7f0283;
+  border-color: #7f0283;
   margin-left: 2rem;
 }
 
@@ -59,7 +62,7 @@ h3:hover {
 .card {
   margin: 2rem;
   padding: 2rem;
-  background: rgba(113, 85, 110, 0.51); 
+  background: rgba(113, 85, 110, 0.51);
   border-radius: 2rem;
   display: flex;
   justify-content: center;
@@ -84,14 +87,16 @@ h3:hover {
   position: relative;
   width: 55%;
   height: 80rem;
-  
+  padding: 5rem;
   color: #ffffff;
-  background: rgba(218, 125, 249, 0.1); 
+  background: rgba(243, 239, 239, 0.21);
   border-radius: 2rem;
 }
 
-.moreInfoBttn, .add-sleep-data, .submit-button {
-  background-color:#7f0283 ;
+.moreInfoBttn,
+.add-sleep-data,
+.submit-button {
+  background-color: #7f0283;
   border: none;
   color: white;
   border-radius: 0.5rem;
@@ -104,6 +109,7 @@ h3:hover {
   bottom: 1rem;
   right: 1rem;
 }
+
 .moreInfoBttn:hover {
   background-color: #f546e0;
   cursor: pointer;
@@ -114,23 +120,23 @@ h3:hover {
 .card2 {
   height: fit-content;
   display: grid;
-  grid-row: 2 / 10 ;
+  grid-row: 2 / 10;
   grid-column: 3 / 5;
   gap: 2rem;
-  justify-items: center; 
+  justify-items: center;
   align-items: center;
 }
 
 .widget {
-  color: #ffffff; 
-  background: rgba(249, 247, 249, 0.21); 
+  color: #ffffff;
+  background: rgba(243, 239, 239, 0.21);
   border-radius: 2rem;
-  padding: 0.34rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+
 }
 
 /* Sleep Data STYLES */
@@ -158,15 +164,18 @@ h3:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+
+
 }
 
 .add-sleep-data {
   height: 4rem;
 }
+
 .hidden {
   display: none;
 }
+
 .sleep-form label {
   /* border: #7f0283 2px solid; */
   width: 30rem;
@@ -174,9 +183,12 @@ h3:hover {
   justify-content: center;
 }
 
-.submit-button, .add-sleep-data {
+.submit-button,
+.add-sleep-data {
   position: initial;
 }
+
+
 
 /* STEP CHALLENGE STYLES */
 
@@ -197,8 +209,3 @@ h3:hover {
 #sleepQualityChart {
   border: 2px black;
 }
-
-
-
-
-

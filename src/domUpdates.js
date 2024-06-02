@@ -45,8 +45,11 @@ function checkIfDisplayed(user, userData) {
   } else {
     userCard.innerHTML = `
       <section class='user-card'> 
+        <h2>User Profile</h2>
+        <br>
         <div>
           <h3><span>${user.name.split(" ")[0]}'s</span> daily step goal is <span>${user.dailyStepGoal} </span>steps</h3>
+          <br>
           <h3>The <span>average</span> step goal is <span>${userSteps}</span></h3>
         </div>
         <button class='moreInfoBttn'>More User Info</button>
