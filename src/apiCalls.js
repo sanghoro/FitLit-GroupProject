@@ -50,8 +50,8 @@ const displayAddedSleepData = sleepData => {
   newSleepDisplay.innerHTML = `
     <p>Id: ${sleepData.userID}<p>
     <p>Date:${sleepData.date}<p>
-    <canvas id="hoursSleptChart"></canvas>
-    <canvas id="sleepQualityChart"></canvas>
+    // <canvas id="hoursSleptChart"></canvas>
+    // <canvas id="sleepQualityChart"></canvas>
   `;
 
   // Create Hours Slept Chart
@@ -100,10 +100,10 @@ const displayAddedSleepData = sleepData => {
 
 export function submitSleepData(e) {
   e.preventDefault();
-  const addSleepBttn = document.querySelector('.add-sleep-data');
-  const sleepForm = document.querySelector('.sleep-form');
-  addSleepBttn.classList.remove('hidden')
-  sleepForm.classList.add('hidden')
+  // const addSleepBttn = document.querySelector('.add-sleep-data');
+  // const sleepForm = document.querySelector('.sleep-form');
+  // addSleepBttn.classList.remove('hidden')
+  // sleepForm.classList.add('hidden')
   const loggedInUser = getLoggedInUser();
   const formElement = e.target;
   const formData = new FormData(formElement);
@@ -124,9 +124,8 @@ export function submitSleepData(e) {
     return;
   }
 
-  console.log('Sleep Log Data:', sleepLog);
   addSleepData(sleepLog).then(() => {
-    console.log('Data should now be updated.');
+  
     return fetchSleepData();  
   })
   .then(updatedSleepData => {

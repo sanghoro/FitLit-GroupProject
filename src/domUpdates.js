@@ -110,8 +110,6 @@ export function displaySleepData(avgSleepHours, avgSleepQuality, sleepHoursByDay
       <h3>Last night's <span>sleep quality</span> was <span>${sleepQualityByDay}</span>/5</h3>
       <h3><span>Average</span> Hours of sleep per week ${Math.round(avgSleepHours)} </h3>
       <h3><span>Average</span> sleep quality: <span>${avgSleepQuality.toFixed(2)}</span> </h3>
-      <h3><span>Hours slept</span> this week: <span>${hoursSleptThisWeek.map((day) => Math.round(day.hoursSlept)).join(", ")}</span> </h3>
-      <h3><span>Sleep quality</span> this Week: <span>${sleepQualityByWeek.map((day) => day.sleepQuality).join(", ")}</span></h3>
     </div>
     <canvas id='sleepChart'></canvas>
     <canvas id='sleepQualityChart'></canvas>
