@@ -62,9 +62,7 @@ const displayAddedSleepData = sleepData => {
 
 export function submitSleepData(e) {
   e.preventDefault();
-  // const addSleepBttn = document.querySelector('.add-sleep-data');
   const sleepForm = document.querySelector('.sleep-form');
-  // addSleepBttn.classList.remove('hidden')
   sleepForm.classList.add('hidden')
   const loggedInUser = getLoggedInUser();
   const formElement = e.target;
@@ -90,9 +88,7 @@ export function submitSleepData(e) {
   
     return fetchSleepData();  
   })
-  .then(updatedSleepData => {
-    console.log('Updated Sleep Data:', updatedSleepData);  
-  })
+  .then(updatedSleepData => updatedSleepData)
   .catch(error => {
     console.error('Error fetching updated sleep data:', error);
   });
