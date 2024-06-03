@@ -1,12 +1,12 @@
 # FitLit
 
 ## Abstract
-This project is about making a web application that lets users track their fitness activities, water intake, and sleep patterns. The app has a dashboard that shows personalized fitness data, hydration info, and sleep details by using data fetching. Users can see their detailed information by clicking the 'More User Info' button, and they can also see their friends' list.
+This project is about making a web application that lets users track their fitness activities, water intake, and sleep patterns. The app has a dashboard that shows personalized fitness data, hydration info, and sleep details by using data fetching. Users can see their detailed information by clicking the 'More User Info' button, and they can also see their friends' list. Users can also post their own sleep data and see how their steps compare to the steps of their friends.
 
 ## Installation Instructions
-In your terminal, clone down the project [here](https://github.com/sanghoro/Flash-Cards)
+In your terminal, clone down the project [here](https://github.com/sanghoro/FitLit-GroupProject)
 
-Start server by entering 'npm start'
+cd into the project directory and start server by entering 'npm start' in your terminal
 
 Command + L click the link `http://localhost:8080/`
 

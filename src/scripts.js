@@ -52,10 +52,6 @@ function fetchAllData() {
 
       const recentActivityData = getRecentActivityData(activityData, loggedInUser.id);
       displayActivityData(recentActivityData, loggedInUser);
-
-      const stepComparison = compareSteps(loggedInUser, loggedInUser.friends);
-      logFriendsSteps(stepComparison);
-      const userWithMaxSteps = findUserWithMaxSteps(stepComparison);
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
@@ -134,21 +130,6 @@ function compareSteps(loggedInUser, friendIds) {
     const recentActivityData = getRecentActivityData(activityData, userId);
     const totalSteps = recentActivityData.reduce((acc, activity) => acc + activity.numSteps, 0);
     return { userId, name: user.name, steps: totalSteps };
-  });
-}
-
-function findUserWithMaxSteps(stepsOfUserAndFriends) {
-  return stepsOfUserAndFriends.reduce((acc, user) => {
-    if (user.steps > acc.steps) {
-      return user;
-    } else {
-      return acc;
-    }
-  }, { userId: null, name: null, steps: 0 });
-}
-
-function logFriendsSteps(stepsOfUserAndFriends) {
-  stepsOfUserAndFriends.forEach(user => {
   });
 }
 
