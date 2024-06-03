@@ -46,53 +46,15 @@ export function addSleepData(newSleepObj) {
 }
 
 const displayAddedSleepData = sleepData => {
+  
   var newSleepDisplay = document.querySelector('.returned-data')
   newSleepDisplay.innerHTML = `
+    <h3> New USER Input Data </h3>
     <p>Id: ${sleepData.userID}<p>
     <p>Date:${sleepData.date}<p>
-    // <canvas id="hoursSleptChart"></canvas>
-    // <canvas id="sleepQualityChart"></canvas>
+    <p>Hours slept: ${sleepData.hoursSlept} </p>
+    <p> Sleep Quality: ${sleepData.sleepQuality} </p>
   `;
-
-  // Create Hours Slept Chart
-  const ctxHours = document.getElementById('hoursSleptChart').getContext('2d');
-  new Chart(ctxHours, {
-    type: 'doughnut',
-    data: {
-      labels: ['Hours Slept'],
-      datasets: [{
-        data: [sleepData.hoursSlept, 24 - sleepData.hoursSlept], // Assuming 24 hours in a day
-        backgroundColor: ['#36a2eb', '#e0e0e0'],
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: `Hours Slept: ${sleepData.hoursSlept}`
-      },
-      cutout: '80%'
-    }
-  });
-
-  // Create Sleep Quality Chart
-  const ctxQuality = document.getElementById('sleepQualityChart').getContext('2d');
-  new Chart(ctxQuality, {
-    type: 'doughnut',
-    data: {
-      labels: ['Sleep Quality'],
-      datasets: [{
-        data: [sleepData.sleepQuality, 5 - sleepData.sleepQuality], // Assuming sleep quality is rated out of 5
-        backgroundColor: ['#ff6384', '#e0e0e0'],
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: `Sleep Quality: ${sleepData.sleepQuality}`
-      },
-      cutout: '80%'
-    }
-  });
 };
 
 
@@ -100,10 +62,8 @@ const displayAddedSleepData = sleepData => {
 
 export function submitSleepData(e) {
   e.preventDefault();
-  // const addSleepBttn = document.querySelector('.add-sleep-data');
-  // const sleepForm = document.querySelector('.sleep-form');
-  // addSleepBttn.classList.remove('hidden')
-  // sleepForm.classList.add('hidden')
+  const sleepForm = document.querySelector('.sleep-form');
+  sleepForm.classList.add('hidden')
   const loggedInUser = getLoggedInUser();
   const formElement = e.target;
   const formData = new FormData(formElement);
@@ -128,9 +88,7 @@ export function submitSleepData(e) {
   
     return fetchSleepData();  
   })
-  .then(updatedSleepData => {
-    console.log('Updated Sleep Data:', updatedSleepData);  
-  })
+  .then(updatedSleepData => updatedSleepData)
   .catch(error => {
     console.error('Error fetching updated sleep data:', error);
   });

@@ -19,38 +19,36 @@
     <div class="card card4">
       <div id="activity-widget"></div>
     </div>
-  
-  
-  <div class="card card2">
-    <div id="hydration-widget"></div>
-  </div>
-  <div class="card card3">
-    <div id="sleep-widget"></div>
-    <div class="form-wrapper">
-      <div class=" widget sleep-form-widget">
-        <button class="add-sleep-data">Add Sleep</button>
-        <form class="sleep-form hidden">
-          <!-- <label for="user-id">Id:
-            <input required placeholder="Enter a number" type="number" name="user-input-id">
-          </label> -->
-          <label for="date">Date:
-            <input required placeholder="yyyy/mm/dd" type="text" name="date-id">
-          </label>
-          <label for="hours-slept">Hours Slept:
-            <input required placeholder="1-24" type="number" name='hr-slept-id'>
-          </label>
-          <label for="sleep-quality">Sleep Quality:
-            <input required placeholder="1-5" type="text" name="sleep-qlty-id">
-          </label>
-          <button type="submit" class="submit-button">Submit </button>
+
+
+    <div class="card card2">
+      <div id="hydration-widget"></div>
+    </div>
+    <div class="card card3">
+      <div id="sleep-widget"></div>
+      <div class="form-wrapper">
+        <div class=" widget sleep-form-widget">
+          <button class="add-sleep-data">Add Sleep</button>
+          <form class="sleep-form hidden">
+            <h3>Enter Last Nights Sleep Data</h3>
+            <label for="date"><span class="formSpan">Date:</span>
+              <input required placeholder="yyyy/mm/dd" type="text" name="date-id">
+            </label>
+            <label for="hours-slept"><span class="formSpan">Hours slept:</span>
+              <input required placeholder="1-24" type="number" name='hr-slept-id' min="0" max="24">
+            </label>
+            <label for="sleep-quality"><span class="formSpan">Sleep Quality:</span>
+              <input required placeholder="1-5" type="text" name="sleep-qlty-id" min="0" max="5">
+            </label>
+            <button type="submit" class="submit-button">Submit </button>
+          </form>
           <div class="returned-data"></div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
   </section>
-</section>
-</section>
+  </section>
+  </section>
 
   <!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

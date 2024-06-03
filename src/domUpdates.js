@@ -30,6 +30,7 @@ function checkIfDisplayed(user, userData) {
     userCard.innerHTML = `
       <section class='user-card'>
       <h2>User Profile</h2>
+      <br>
       <div>
         <h3><span>User id:</span> #${user.id}</h3> 
         <h3><span>Full name:</span> ${user.name}</h3>
