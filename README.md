@@ -15,7 +15,8 @@ You can run tests by typing in 'npm test'
 You can close the server by 'ctrl + c'
 
 ## Preview
-![giphy](https://github.com/sanghoro/FitLit-GroupProject/assets/159068651/a2d6ade2-71f9-43fd-8897-24aa88be56e4)
+![VideoToGif_GIF](https://github.com/sanghoro/FitLit-GroupProject/assets/159068651/5985f6ec-08bc-41c9-9813-cea75ebf946e)
+
 
 
 ## Context
