@@ -15,7 +15,9 @@ You can run tests by typing in 'npm test'
 You can close the server by 'ctrl + c'
 
 ## Preview
-![alt text](Gif/fitLit.GIF)
+![VideoToGif_GIF](https://github.com/sanghoro/FitLit-GroupProject/assets/159068651/5985f6ec-08bc-41c9-9813-cea75ebf946e)
+
+
 
 ## Context
 The first half of this project was assigned 2024/05/10 and was to be completed by 9PM MST 2024/05/20.
