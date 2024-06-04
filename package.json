@@ -7,6 +7,12 @@
     "start": "webpack serve",
     "build": "webpack",
     "test": "mochapack 'test/**/*.js'"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanghoro/FitLit-GroupProject.git"
   },
   "author": "Turing School of Software and Design",
   "license": "MIT",
